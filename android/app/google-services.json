@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "415302518477",
+    "project_id": "mainproject-6f254",
+    "storage_bucket": "mainproject-6f254.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:415302518477:android:fa3ce36c1a6c1c9ca44b84",
+        "android_client_info": {
+          "package_name": "com.example.statemanagement"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBz0ytcSoY6eEZBYoolB8c5CCcn8QQO3xc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
