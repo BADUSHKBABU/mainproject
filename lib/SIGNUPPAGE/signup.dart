@@ -95,7 +95,7 @@ class _signupState extends State<signup> {
   Future signup() async
   {
     try {
-      final credential = await FirebaseAuth.instance
+      await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
         email: username.text,
         password: password.text,
