@@ -19,7 +19,7 @@ class _signupState extends State<signup> {
 
 //FOR SIGNUP YOU NEED TO ENTER USERNAME<PASSWORD AND MAIL ID//
 //////////////////////////////////////////////////////////////
-  final TextEditingController username = TextEditingController();
+  //final TextEditingController username = TextEditingController();
   final TextEditingController password = TextEditingController();
   final TextEditingController email_id = TextEditingController();
 
@@ -36,33 +36,25 @@ class _signupState extends State<signup> {
             //==============================================//
             Column(mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text("USER NAME", style: TextStyle(fontSize: 20)),
-                TextField(
-                  controller: username,
-                  decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.grey,
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10))
-                  ),
-                ),
+
                 SizedBox(height: 10,),
 
                 //          PASSWORD TEXT FIELD
-                Text("PASSWORD", style: TextStyle(fontSize: 20)),
+
+                SizedBox(height: 10,),
+                SizedBox(height: 10,),
+                Text("EMAIL ID", style: TextStyle(fontSize: 20),),
                 TextField(
-                  controller: password,
+                  controller: email_id,
                   decoration: InputDecoration(filled: true,
                       fillColor: Colors.grey,
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10))
                   ),
                 ),
-                SizedBox(height: 10,),
-                SizedBox(height: 10,),
-                Text("EMAIL ID", style: TextStyle(fontSize: 20),),
+                Text("PASSWORD", style: TextStyle(fontSize: 20)),
                 TextField(
-                  controller: email_id,
+                  controller: password,
                   decoration: InputDecoration(filled: true,
                       fillColor: Colors.grey,
                       border: OutlineInputBorder(
@@ -76,7 +68,7 @@ class _signupState extends State<signup> {
 
 //  WHEN CLICK SIGNUP TO SHOULD SAVED IN FIREBASE DATABASE(FIREBASE NOT ADDED THOUGH (23/11/2023))//
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-            //BTTON FOR SIGNUP,IT IS REDIRECTED TO LOGIN PAGE//
+            ///BUTTON FOR SIGNUP,IT IS REDIRECTED TO LOGIN PAGE//
             //==========================================//
             ElevatedButton(onPressed: () {
               signup();
@@ -97,7 +89,7 @@ class _signupState extends State<signup> {
     try {
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
-        email: username.text,
+        email: email_id.text,
         password: password.text,
       );
     } on FirebaseAuthException catch (e) {

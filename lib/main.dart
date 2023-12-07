@@ -42,32 +42,32 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
 
-      home: //splash(),
-      homepage()
+      home://homepage() //splash(),
+
       //test()
 
 
       //THIS WILL BE ENABLED ONCE HOMEPAGE OVER //
       //========================================//
-      //FIREBASE AUTHENTICATION??
-      //=========================//
-        // StreamBuilder<User?>(
-        //   stream: FirebaseAuth.instance.authStateChanges(),
-        //   builder: (context,snapshot){
-        //     if(snapshot.connectionState==ConnectionState.waiting)
-        //     {
-        //       return Center(child: CircularProgressIndicator(),);
-        //     }
-        //     else if(snapshot.hasData){
-        //       return homepage();
-        //     }
-        //     else
-        //       return loginpage();
-        //   },
-        // )
+///      FIREBASE AUTHENTICATION??
+///      =========================//
+      StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context,snapshot){
+          if(snapshot.connectionState==ConnectionState.waiting)
+          {
+            return Center(child: CircularProgressIndicator(),);
+          }
+          else if(snapshot.hasData){
+            return homepage();
+          }
+          else
+            return loginpage();
+        },
+      )
 
-//              FIREBASE CODE ENDS HERE
-//              =======================
+             // FIREBASE CODE ENDS HERE
+             // =======================
       //loginpage()//test()
       //splash()
       //loginpage(),

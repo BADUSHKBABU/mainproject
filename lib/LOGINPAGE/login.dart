@@ -30,12 +30,18 @@ class _loginpageState extends State<loginpage> {
 
   // TEXT EDITING CONTROLER FOR USERNAME,PASSWORD,AND MAIL
   //=================================================================
-  final TextEditingController username = TextEditingController();
-  final TextEditingController password = TextEditingController();
-  final TextEditingController email = TextEditingController();
+
+  final  password = TextEditingController();
+  final  email = TextEditingController();
 
   //=================================================================
-
+@override
+void dispose()
+{
+  email.dispose();
+  password.dispose();
+  super.dispose();
+}
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +91,7 @@ class _loginpageState extends State<loginpage> {
                           style: TextStyle(
                               fontSize: 20, color: Colors.yellow),),
                         TextField(
-                          controller: username,
+                          controller: email,
                           decoration: InputDecoration(
                               filled: true,
                               fillColor: Colors.white,
@@ -108,15 +114,12 @@ class _loginpageState extends State<loginpage> {
                         ),
 
 
-//                                            LOGIN BUTTON
+///                                            LOGIN BUTTON
 //                                           ==============
                         ElevatedButton(onPressed: () {
                            login();
 
-                                                                    // Navigator.of(context).push(
-                                                                    //     MaterialPageRoute(builder: (context) {
-                                                                    //       return homepage();
-                                                                    //     }));
+
                                                                     // savelogincredential(context);
                                                                     // provider.getdatafromloginpage(username.text);
                         }, child: Text("login")),
@@ -133,6 +136,7 @@ class _loginpageState extends State<loginpage> {
                               }));
                         },
                             child: Text("Signup")),
+                        // Text(login())
                       ],
                     ),
                   ),
@@ -166,11 +170,17 @@ class _loginpageState extends State<loginpage> {
 //FIREBASE AUTHENTICATION
   login() async
   {
+    String a="";
     try {
        await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: username.text.trim(),
-          password: password.text.trim()
+          email: email.text,
+          password: password.text,
+
       );
+       Navigator.of(context).push(
+           MaterialPageRoute(builder: (context) {
+             return homepage();
+           }));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
@@ -178,6 +188,7 @@ class _loginpageState extends State<loginpage> {
         print('Wrong password provided for that user.');
       }
       print(e);
+
     }
   }
 }

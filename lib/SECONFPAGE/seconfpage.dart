@@ -1,14 +1,18 @@
 
 
 import 'package:clay_containers/clay_containers.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:statemanagement/APPBAR/appbar.dart';
+import 'package:statemanagement/FIREBASE%20DATAS/PROFILE/profile.dart';
+import 'package:statemanagement/FIREBASE%20DATAS/RESTAURANT/restaurant.dart';
 import 'package:statemanagement/LOGINPAGE/login.dart';
 import 'package:statemanagement/LOGINPAGE/logindata.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+
 
 
 class homepage extends StatefulWidget {
@@ -19,6 +23,7 @@ class homepage extends StatefulWidget {
 }
 int currentpageindex=0;
 class _homepageState extends State<homepage> {
+  final user=FirebaseAuth.instance.currentUser!;
 
 
   bool check = true;
@@ -38,401 +43,403 @@ class _homepageState extends State<homepage> {
 
 
       ///BOTTOM NAVIGATION BAR
-        bottomNavigationBar: NavigationBar(
-          onDestinationSelected: (int index) {
-            setState(() {
-              currentpageindex = index;
-            });
-          },
-          indicatorColor: Colors.amber,
-          selectedIndex: currentpageindex,
-          destinations: const <Widget>[
-            NavigationDestination(
-              selectedIcon: Icon(Icons.home),
-              icon: Icon(Icons.home_outlined),
-              label: 'Home',
-            ),
-            NavigationDestination(
-              selectedIcon: Icon(Icons.notifications),
-              icon: Icon(Icons.notifications),
-              label: 'Notifications',
-            ),
-            NavigationDestination(
-              selectedIcon: Icon((Icons.abc_outlined)),
-              icon: Icon(Icons.abc_outlined),
-              label: 'About Us',
-            ),
-          ],
+      //   bottomNavigationBar: NavigationBar(
+      //     onDestinationSelected: (int index) {
+      //       setState(() {
+      //         currentpageindex = index;
+      //       });
+      //     },
+      //     indicatorColor: Colors.amber,
+      //     selectedIndex: currentpageindex,
+      //     destinations: const <Widget>[
+      //       NavigationDestination(
+      //         selectedIcon: Icon(Icons.home),
+      //         icon: Icon(Icons.home_outlined),
+      //         label: 'Home',
+      //       ),
+      //       NavigationDestination(
+      //         selectedIcon: Icon(Icons.notifications),
+      //         icon: Icon(Icons.notifications),
+      //         label: 'Notifications',
+      //       ),
+      //       NavigationDestination(
+      //         selectedIcon: Icon((Icons.abc_outlined)),
+      //         icon: Icon(Icons.abc_outlined),
+      //         label: 'About Us',
+      //       ),
+      //     ],
+      //   ),
+
+        ///       BOTTOM NAVIGATION BAR ENDS HERE
+        ///@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+        appBar: PreferredSize(
+          child: aPPBAR(),
+          preferredSize: Size.fromHeight(50),
         ),
-
-///       BOTTOM NAVIGATION BAR ENDS HERE
-///@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-      appBar: PreferredSize(
-        child: aPPBAR(),
-        preferredSize: Size.fromHeight(50),
-      ),
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            UserAccountsDrawerHeader(
-///              ACCOUNAME WILL BE FETCHED FROM FIREBASE AUTH
-              accountName: Text("${provider.name}"),
-
-///              EMAIL ID WIL BE FETCHED FROM FIREBASE AUTH
-              accountEmail: Text("${provider.name}@gmail.com"),
-              currentAccountPicture: CircleAvatar(),
-            ),
-            //Drawer Head
-
-            //Drawer rows
-            //Row1 "HOME"
-            TextButton(onPressed: () {}, child: Text("HOME")),
-
-            //ROW2 "exit"
-            TextButton(onPressed: () {Exit(context);}, child: Text("Exit")),
-         ],
-        ),
-      ),
-///        END OF DRAWER
-///@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          child: ListView(//OUTER LIST VIEW
-            scrollDirection: Axis.vertical,
+        drawer: Drawer(
+          child: ListView(
             children: [
+              UserAccountsDrawerHeader(
+                ///              ACCOUNAME WILL BE FETCHED FROM FIREBASE AUTH
+                accountName: Text(user.email!),
 
-        ///            FIRST CONATAINER CONTAINING USEFULL LINK
-        ///          ============================================
-              Text("UDumbannor directory",textAlign: TextAlign.center,),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ClayContainer(
-                  height: 100,
-                  width: MediaQuery.of(context).size.width,
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 0),
-                      child: ListView(scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(height: 150,width:80,child: Column(
-                              children: [Text("home"),
-                                TextButton(onPressed: (){}, child: Icon(Icons.home)),
-                              ],
-                            )),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(height: 150,width:80,child: Column(
-                              children: [Text("DOCTORS"),
-                                TextButton(onPressed: (){}, child: Icon(Icons.local_hospital)),
-                              ],
-                            )),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(height: 150,width:80,child: Column(
-                              children: [Text("Emergency"),
-                                TextButton(onPressed: (){}, child: Icon(Icons.contact_emergency)),
-                              ],
-                            )),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(height: 150,width:80,child: Column(
-                              children: [Text("Sports"),
-                                TextButton(onPressed: (){}, child: Icon(Icons.sports_cricket)),
-                              ],
-                            )),
-                          ),
-                        ],
+                ///              EMAIL ID WIL BE FETCHED FROM FIREBASE AUTH
+                accountEmail: Text(user.email!),
+                currentAccountPicture: CircleAvatar(),
+              ),
+              //Drawer Head
+
+              //Drawer rows
+              //Row1 "HOME"
+              TextButton(onPressed: () {}, child: Text("HOME")),
+
+              //ROW2 "exit"
+              TextButton(onPressed: () {Exit(context);}, child: Text("Exit")),
+            ],
+          ),
+        ),
+        ///        END OF DRAWER
+        ///@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: ListView(//OUTER LIST VIEW
+              scrollDirection: Axis.vertical,
+              children: [
+
+                ///            FIRST CONATAINER CONTAINING USEFULL LINK
+                ///          ============================================
+                Text("UDumbannor directory",textAlign: TextAlign.center,),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ClayContainer(
+                    height: 100,
+                    width: MediaQuery.of(context).size.width,
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 0),
+                        child: ListView(scrollDirection: Axis.horizontal,
+                          shrinkWrap: true,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(height: 150,width:80,child: Column(
+                                children: [Text("profile"),
+                                  TextButton(onPressed: (){changeprofile();}, child: Icon(Icons.person)),
+                                ],
+                              )),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(height: 150,width:80,child: Column(
+                                children: [Text("DOCTORS"),
+                                  TextButton(onPressed: (){}, child: Icon(Icons.local_hospital)),
+                                ],
+                              )),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(height: 150,width:80,child: Column(
+                                children: [Text("Emergency"),
+                                  TextButton(onPressed: (){}, child: Icon(Icons.contact_emergency)),
+                                ],
+                              )),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(height: 150,width:80,child: Column(
+                                children: [Text("Sports"),
+                                  TextButton(onPressed: (){}, child: Icon(Icons.sports_cricket)),
+                                ],
+                              )),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-        ///           FIST CONTAINER ENDS HERE
-        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+                ///           FIST CONTAINER ENDS HERE
+                //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 
 
-        ///        SECOND CONTAINER STARTS HERE
-        //       ===============================
-            Center(child: Text("SERVICES",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 25,color: Colors.black),)),
-              ClayContainer(spread: 10,
-                depth: 40,
-                width: MediaQuery.of(context).size.width,
-                height: 250,
-                color: Colors.white,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ListView(//ADDED ROW FOR ENTIRE CONTAINER
-                    scrollDirection: Axis.horizontal,
-                    children: [
+                ///        SECOND CONTAINER STARTS HERE
+                //       ===============================
+                Center(child: Text("SERVICES",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 25,color: Colors.black),)),
+                ClayContainer(spread: 10,
+                  depth: 40,
+                  width: MediaQuery.of(context).size.width,
+                  height: 250,
+                  color: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListView(//ADDED ROW FOR ENTIRE CONTAINER
+                      scrollDirection: Axis.horizontal,
+                      children: [
 
 
-                      Column(///ADDING COLUMN INSIDE THE ROW , CONTAINER ITSELF IS A ROW ,WE ADDING 2 COMPONENTS IN EACH COLUMN
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ClayContainer(curveType: CurveType.convex,
-                              spread: 1,
-                              width: 80,
-                              height: 100,
-                              color: Colors.white,
-                              child: Column(
-                                children: [
-                                  Text("panchayath"),
-                                  TextButton(onPressed: (){},child: Icon(Icons.house),),
-                                ],
+                        Column(///ADDING COLUMN INSIDE THE ROW , CONTAINER ITSELF IS A ROW ,WE ADDING 2 COMPONENTS IN EACH COLUMN
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ClayContainer(curveType: CurveType.convex,
+                                spread: 1,
+                                width: 80,
+                                height: 100,
+                                color: Colors.white,
+                                child: Column(
+                                  children: [
+                                    Text("panchayath"),
+                                    TextButton(onPressed: (){},child: Icon(Icons.house),),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ClayContainer(curveType: CurveType.convex,
-                              spread: 1,
-                              width: 80,
-                              height: 100,
-                              color: Colors.white,
-                              child: Column(
-                                children: [
-                                  Text("Vehicles"),
-                                  TextButton(onPressed: (){},child: Icon(Icons.car_rental),),
-                                ],
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ClayContainer(curveType: CurveType.convex,
+                                spread: 1,
+                                width: 80,
+                                height: 100,
+                                color: Colors.white,
+                                child: Column(
+                                  children: [
+                                    Text("Vehicles"),
+                                    TextButton(onPressed: (){},child: Icon(Icons.car_rental),),
+                                  ],
+                                ),
                               ),
-                            ),
-                          )
-                        ],
-                      ),
+                            )
+                          ],
+                        ),
 
 
-                      Column(///ADDING COLUMN INSIDE THE ROW , CONTAINER ITSELF IS A ROW ,WE ADDING 2 COMPONENTS IN EACH COLUMN
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ClayContainer(curveType: CurveType.convex,
-                              spread: 1,
-                              width: 80,
-                              height: 100,
-                              color: Colors.white,
-                              child: Column(
-                                children: [
-                                  Text("Notification"),
-                                  TextButton(onPressed: (){},child: Icon(Icons.notifications),),
-                                ],
+                        Column(///ADDING COLUMN INSIDE THE ROW , CONTAINER ITSELF IS A ROW ,WE ADDING 2 COMPONENTS IN EACH COLUMN
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ClayContainer(curveType: CurveType.convex,
+                                spread: 1,
+                                width: 80,
+                                height: 100,
+                                color: Colors.white,
+                                child: Column(
+                                  children: [
+                                    Text("Notification"),
+                                    TextButton(onPressed: (){},child: Icon(Icons.notifications),),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ClayContainer(curveType: CurveType.convex,
-                              spread: 1,
-                              width: 80,
-                              height: 100,
-                              color: Colors.white,
-                              child: Column(
-                                children: [
-                                  Text("Shops"),
-                                  TextButton(onPressed: (){},child: Icon(Icons.shopping_basket),),
-                                ],
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ClayContainer(curveType: CurveType.convex,
+                                spread: 1,
+                                width: 80,
+                                height: 100,
+                                color: Colors.white,
+                                child: Column(
+                                  children: [
+                                    Text("Shops"),
+                                    TextButton(onPressed: (){},child: Icon(Icons.shopping_basket),),
+                                  ],
+                                ),
                               ),
-                            ),
-                          )
-                        ],
-                      ),
+                            )
+                          ],
+                        ),
 
 
-                      Column(///ADDING COLUMN INSIDE THE ROW , CONTAINER ITSELF IS A ROW ,WE ADDING 2 COMPONENTS IN EACH COLUMN
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ClayContainer(curveType: CurveType.convex,
-                              spread: 1,
-                              width: 80,
-                              height: 100,
-                              color: Colors.white,
-                              child: Column(
-                                children: [
-                                  Text("news"),
-                                  TextButton(onPressed: (){},child: Icon(Icons.newspaper_sharp),),
-                                ],
+                        Column(///ADDING COLUMN INSIDE THE ROW , CONTAINER ITSELF IS A ROW ,WE ADDING 2 COMPONENTS IN EACH COLUMN
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ClayContainer(curveType: CurveType.convex,
+                                spread: 1,
+                                width: 80,
+                                height: 100,
+                                color: Colors.white,
+                                child: Column(
+                                  children: [
+                                    Text("news"),
+                                    TextButton(onPressed: (){},child: Icon(Icons.newspaper_sharp),),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ClayContainer(curveType: CurveType.convex,
-                              spread: 1,
-                              width: 80,
-                              height: 100,
-                              color: Colors.white,
-                              child: Column(
-                                children: [
-                                  Text("Sports"),
-                                  TextButton(onPressed: (){},child: Icon(Icons.sports_cricket),),
-                                ],
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ClayContainer(curveType: CurveType.convex,
+                                spread: 1,
+                                width: 80,
+                                height: 100,
+                                color: Colors.white,
+                                child: Column(
+                                  children: [
+                                    Text("Sports"),
+                                    TextButton(onPressed: (){},child: Icon(Icons.sports_cricket),),
+                                  ],
+                                ),
                               ),
-                            ),
-                          )
-                        ],
-                      ),
+                            )
+                          ],
+                        ),
 
 
-                      Column(///ADDING COLUMN INSIDE THE ROW , CONTAINER ITSELF IS A ROW ,WE ADDING 2 COMPONENTS IN EACH COLUMN
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ClayContainer(curveType: CurveType.convex,
-                              spread: 1,
-                              width: 80,
-                              height: 100,
-                              color: Colors.white,
-                              child: Column(
-                                children: [
-                                  Text("Restaurant"),
-                                  TextButton(onPressed: (){},child: Icon(Icons.restaurant),),
-                                ],
+                        Column(///ADDING COLUMN INSIDE THE ROW , CONTAINER ITSELF IS A ROW ,WE ADDING 2 COMPONENTS IN EACH COLUMN
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ClayContainer(curveType: CurveType.convex,
+                                spread: 1,
+                                width: 80,
+                                height: 100,
+                                color: Colors.white,
+                                child: Column(
+                                  children: [
+                                    Text("Restaurant"),
+                                    TextButton(onPressed: (){
+                                      Navigator.of(context).push(MaterialPageRoute(builder: (context){return restaurant();}));
+                                    },child: Icon(Icons.restaurant),),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ClayContainer(curveType: CurveType.convex,
-                              spread: 1,
-                              width: 80,
-                              height: 100,
-                              color: Colors.white,
-                              child: Column(
-                                children: [
-                                  Text("Schools"),
-                                  TextButton(onPressed: (){},child: Icon(Icons.school),),
-                                ],
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ClayContainer(curveType: CurveType.convex,
+                                spread: 1,
+                                width: 80,
+                                height: 100,
+                                color: Colors.white,
+                                child: Column(
+                                  children: [
+                                    Text("Schools"),
+                                    TextButton(onPressed: (){},child: Icon(Icons.school),),
+                                  ],
+                                ),
                               ),
-                            ),
-                          )
-                        ],
-                      ),
+                            )
+                          ],
+                        ),
 
-                      Column(///ADDING COLUMN INSIDE THE ROW , CONTAINER ITSELF IS A ROW ,WE ADDING 2 COMPONENTS IN EACH COLUMN
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ClayContainer(curveType: CurveType.convex,
-                              spread: 1,
-                              width: 80,
-                              height: 100,
-                              color: Colors.white,
-                              child: Column(
-                                children: [
-                                  Text("Medical \nshops",textAlign: TextAlign.center,),
-                                  TextButton(onPressed: (){},child: Icon(Icons.health_and_safety),),
-                                ],
+                        Column(///ADDING COLUMN INSIDE THE ROW , CONTAINER ITSELF IS A ROW ,WE ADDING 2 COMPONENTS IN EACH COLUMN
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ClayContainer(curveType: CurveType.convex,
+                                spread: 1,
+                                width: 80,
+                                height: 100,
+                                color: Colors.white,
+                                child: Column(
+                                  children: [
+                                    Text("Medical \nshops",textAlign: TextAlign.center,),
+                                    TextButton(onPressed: (){},child: Icon(Icons.health_and_safety),),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ClayContainer(curveType: CurveType.convex,
-                              spread: 1,
-                              width: 80,
-                              height: 100,
-                              color: Colors.white,
-                              child: Column(
-                                children: [
-                                  Text("Hospitals"),
-                                  TextButton(onPressed: (){},child: Icon(Icons.local_hospital_outlined),),
-                                ],
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ClayContainer(curveType: CurveType.convex,
+                                spread: 1,
+                                width: 80,
+                                height: 100,
+                                color: Colors.white,
+                                child: Column(
+                                  children: [
+                                    Text("Hospitals"),
+                                    TextButton(onPressed: (){},child: Icon(Icons.local_hospital_outlined),),
+                                  ],
+                                ),
                               ),
-                            ),
-                          )
-                        ],
-                      ),
+                            )
+                          ],
+                        ),
 
 
-                      Column(//ADDING COLUMN INSIDE THE ROW , CONTAINER ITSELF IS A ROW ,WE ADDING 2 COMPONENTS IN EACH COLUMN
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ClayContainer(curveType: CurveType.convex,
-                              spread: 1,
-                              width: 80,
-                              height: 100,
-                              color: Colors.white,
-                              child: Column(
-                                children: [
-                                  Text("Akshaya \nenter",textAlign: TextAlign.center,),
-                                  TextButton(onPressed: (){},child: Icon(Icons.e_mobiledata),),
-                                ],
+                        Column(//ADDING COLUMN INSIDE THE ROW , CONTAINER ITSELF IS A ROW ,WE ADDING 2 COMPONENTS IN EACH COLUMN
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ClayContainer(curveType: CurveType.convex,
+                                spread: 1,
+                                width: 80,
+                                height: 100,
+                                color: Colors.white,
+                                child: Column(
+                                  children: [
+                                    Text("Akshaya \nenter",textAlign: TextAlign.center,),
+                                    TextButton(onPressed: (){},child: Icon(Icons.e_mobiledata),),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ClayContainer(curveType: CurveType.convex,
-                              spread: 1,
-                              width: 80,
-                              height: 100,
-                              color: Colors.white,
-                              child: Column(
-                                children: [
-                                  Text("Social \nservice"),
-                                  TextButton(onPressed: (){},child: Icon(Icons.bloodtype),),
-                                ],
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ClayContainer(curveType: CurveType.convex,
+                                spread: 1,
+                                width: 80,
+                                height: 100,
+                                color: Colors.white,
+                                child: Column(
+                                  children: [
+                                    Text("Social \nservice"),
+                                    TextButton(onPressed: (){},child: Icon(Icons.bloodtype),),
+                                  ],
+                                ),
                               ),
-                            ),
-                          )
-                        ],
-                      )
-                    ],
-                  ),
-                ) ,
-              ),
-        ///        SECOND CONTAINER ENDS HERE
-        ///@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                  ) ,
+                ),
+                ///        SECOND CONTAINER ENDS HERE
+                ///@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-//           Column(
-//             children: [
-//
-//
-//               ElevatedButton(
-//                 onPressed: () {
-//                   setState(() {
-//                     if (check == true) {
-//                       check = false;
-//                     } else {
-//                       check = true;
-//                     }
-//                   });
-//                 },
-//                 child: Text("check"),
-//               ),
-// //          CONTAINER FOR IMAGE SLIDE
-//           Container(
-//             width: MediaQuery.of(context).size.width,
-//             height: 180,
-//             color: Colors.green,
-//             child: ListView(
-//               children:[ WebViewWidget(
-//                 controller: check ? controller:next,
-//               ),
-//             ]
-//             ),
-//
-//           )
-//             ],
-//           )
-            ],
+           Column(
+            children: [
+
+
+              ElevatedButton(
+                 onPressed: () {
+                   setState(() {
+                    if (check == true) {
+                       check = false;
+                     } else {
+                       check = true;
+                     }
+                   });
+                 },
+                 child: Text("check"),
+               ),
+///          CONTAINER FOR IMAGE SLIDE
+           Container(
+             width: MediaQuery.of(context).size.width,
+             height: 180,
+             color: Colors.green,
+             child: ListView(
+               children:[ WebViewWidget(
+                 controller: check ? controller:next,
+               ),
+             ]
+             ),
+
+           )
+             ],
+           )
+              ],
+            ),
           ),
-        ),
-      )
+        )
     );
   }
 
@@ -441,6 +448,12 @@ class _homepageState extends State<homepage> {
     final share=await SharedPreferences.getInstance();
     share.clear();
     Navigator.of(context).push(MaterialPageRoute(builder: (context){return loginpage();}));
+  }
+
+  ///PROFILE BUTTON
+  changeprofile() async
+  {
+    await Navigator.of(context).push(MaterialPageRoute(builder: (context){return profile();}));
   }
 
 }
