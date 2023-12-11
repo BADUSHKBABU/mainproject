@@ -14,6 +14,8 @@ import 'package:statemanagement/LOGINPAGE/login.dart';
 import 'package:statemanagement/LOGINPAGE/logindata.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import '../FIREBASE DATAS/SPORTS/sports.dart';
+
 
 
 class homepage extends StatefulWidget {
@@ -27,14 +29,14 @@ class _homepageState extends State<homepage> {
   final user=FirebaseAuth.instance.currentUser!;
 
 
-  bool check = true;
-  WebViewController controller = WebViewController()
-    ..setJavaScriptMode(JavaScriptMode.unrestricted)
-    ..loadRequest(Uri.parse('https://www.google.com/maps/place/Udumbannoor,+Kerala/@9.9023451,76.8183941,15z/data=!3m1!4b1!4m6!3m5!1s0x3b07c75338a858d9:0x28dd3d3e0ad53ccb!8m2!3d9.9023471!4d76.8201976!16zL20vMGZjemp2?entry=ttu'));
-
-  WebViewController next = WebViewController()
-    ..setJavaScriptMode(JavaScriptMode.unrestricted)
-    ..loadRequest(Uri.parse('https://idukki.nic.in/en/directory/grama-panchayat-udumbannoor/'));
+  // bool check = true;
+  // WebViewController controller = WebViewController()
+  //   ..setJavaScriptMode(JavaScriptMode.unrestricted)
+  //   ..loadRequest(Uri.parse('https://www.google.com/maps/place/Udumbannoor,+Kerala/@9.9023451,76.8183941,15z/data=!3m1!4b1!4m6!3m5!1s0x3b07c75338a858d9:0x28dd3d3e0ad53ccb!8m2!3d9.9023471!4d76.8201976!16zL20vMGZjemp2?entry=ttu'));
+  //
+  // WebViewController next = WebViewController()
+  //   ..setJavaScriptMode(JavaScriptMode.unrestricted)
+  //   ..loadRequest(Uri.parse('https://idukki.nic.in/en/directory/grama-panchayat-udumbannoor/'));
 
 
   @override
@@ -154,7 +156,7 @@ class _homepageState extends State<homepage> {
                               padding: const EdgeInsets.all(8.0),
                               child: Container(height: 150,width:80,child: Column(
                                 children: [Text("Sports"),
-                                  TextButton(onPressed: (){}, child: Icon(Icons.sports_cricket)),
+                                  TextButton(onPressed: (){Navigator.of(context).push(MaterialPageRoute(builder: (context){return sports();}));}, child: Icon(Icons.sports_cricket)),
                                 ],
                               )),
                             ),
@@ -410,31 +412,31 @@ class _homepageState extends State<homepage> {
             children: [
 
 
-              ElevatedButton(
-                 onPressed: () {
-                   setState(() {
-                    if (check == true) {
-                       check = false;
-                     } else {
-                       check = true;
-                     }
-                   });
-                 },
-                 child: Text("check"),
-               ),
+              // ElevatedButton(
+              //    onPressed: () {
+              //      setState(() {
+              //       if (check == true) {
+              //          check = false;
+              //        } else {
+              //          check = true;
+              //        }
+              //      });
+              //    },
+              //    child: Text("check"),
+              //  ),
 ///          CONTAINER FOR IMAGE SLIDE
-           Container(
-             width: MediaQuery.of(context).size.width,
-             height: 180,
-             color: Colors.green,
-             child: ListView(
-               children:[ WebViewWidget(
-                 controller: check ? controller:next,
-               ),
-             ]
-             ),
-
-           )
+//            Container(
+//              width: MediaQuery.of(context).size.width,
+//              height: 180,
+//              color: Colors.green,
+//              child: ListView(
+//                children:[ WebViewWidget(
+//                  controller: check ? controller:next,
+//                ),
+//              ]
+//              ),
+//
+//            )
              ],
            )
               ],
