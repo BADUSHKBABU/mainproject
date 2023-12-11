@@ -170,7 +170,8 @@ void dispose()
 //FIREBASE AUTHENTICATION
   login() async
   {
-    String a="";
+    showDialog(context: context, barrierDismissible: false,builder: (context){return Center(child: CircularProgressIndicator());});
+
     try {
        await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: email.text,
@@ -190,5 +191,6 @@ void dispose()
       print(e);
 
     }
+
   }
 }

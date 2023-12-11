@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:statemanagement/APPBAR/appbar.dart';
 import 'package:statemanagement/FIREBASE%20DATAS/PROFILE/profile.dart';
 import 'package:statemanagement/FIREBASE%20DATAS/RESTAURANT/restaurant.dart';
+import 'package:statemanagement/FIREBASE%20DATAS/TAXI/taxi.dart';
 import 'package:statemanagement/LOGINPAGE/login.dart';
 import 'package:statemanagement/LOGINPAGE/logindata.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -210,7 +211,7 @@ class _homepageState extends State<homepage> {
                                 child: Column(
                                   children: [
                                     Text("Vehicles"),
-                                    TextButton(onPressed: (){},child: Icon(Icons.car_rental),),
+                                    TextButton(onPressed: (){Navigator.of(context).push(MaterialPageRoute(builder: (context){return taxi();}));},child: Icon(Icons.car_rental),),
                                   ],
                                 ),
                               ),

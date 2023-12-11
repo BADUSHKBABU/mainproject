@@ -3,69 +3,72 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:statemanagement/FIREBASE%20DATAS/RESTAURANT/add_restaurant.dart';
 
-class restaurant extends StatefulWidget {
-  const restaurant({super.key});
+import 'addTaxi.dart';
+
+class taxi extends StatefulWidget {
+  const taxi({super.key});
 
   @override
-  State<restaurant> createState() => _restaurantState();
+  State<taxi> createState() => _taxiState();
 }
 
-class _restaurantState extends State<restaurant> {
-  final CollectionReference hotel= FirebaseFirestore.instance.collection("restaurant");
+class _taxiState extends State<taxi> {
+  final CollectionReference hotel= FirebaseFirestore.instance.collection("taxi");
   @override
   Widget build(BuildContext context) {
-///       READING DATA FROM DATABASE
-///       ************************
+    ///       READING DATA FROM DATABASE
+    ///       ************************
     return   Scaffold(
-      appBar: AppBar(title: Text("RESTAURANTS"),backgroundColor: Colors.orange,
+      appBar: AppBar(title: Text("TAXI"),backgroundColor: Colors.yellow,
         actions: [
-        IconButton(onPressed: (){Navigator.of(context).push(MaterialPageRoute(builder: (context){return addRestaurant();}));}, icon: Icon(Icons.add),
-        )],),
+          IconButton(onPressed: (){Navigator.of(context).push(MaterialPageRoute(builder: (context){return addTaxi();}));}, icon: Icon(Icons.add),
+          )],),
       body:StreamBuilder(
-          stream: hotel.snapshots(),
-          builder: (context,snapshot){
-            if (snapshot.hasData)
-            {
-              return ListView.builder(
-                  itemCount:snapshot.data!.docs.length,
-                  itemBuilder: (context,index){
-                    final DocumentSnapshot documentSnapshot=snapshot.data!.docs[index];
+        stream: hotel.snapshots(),
+        builder: (context,snapshot){
+          if (snapshot.hasData)
+          {
+            return ListView.builder(
+                itemCount:snapshot.data!.docs.length,
+                itemBuilder: (context,index){
+                  final DocumentSnapshot documentSnapshot=snapshot.data!.docs[index];
 
-                    return
+                  return
 
-                      ClayContainer(
+                    ClayContainer(
                       width: MediaQuery.of(context).size.width/6,
                       height: MediaQuery.of(context).size.height/6,
                       color: Colors.white,
                       child:
-                          Container(
-                              color: Colors.grey,
-                              child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      Container(
+                          color: Colors.grey,
+                          child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Center(
                                 child: Container(child: Column(mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    Text("RESTAURANT NAME : ${documentSnapshot["name"]}",style: TextStyle(fontSize: 20,color: Colors.white,)),
+                                    Text("TAXI NAME : ${documentSnapshot["name"]}",style: TextStyle(fontSize: 20,color: Colors.white,)),
                                     Text("  MOBILE NUMBER : ${documentSnapshot["mobile"]}",style: TextStyle(fontSize: 20,color: Colors.white,)),
+                                    Text("  TAXI TYPE : ${documentSnapshot["type"]}",style: TextStyle(fontSize: 20,color: Colors.white,)),
                                     Text("  PLACE : ${documentSnapshot["place"]}",style: TextStyle(fontSize: 20,color: Colors.white,)),
 
                                   ],
                                 ),),
                               ),
 
-                             ],
+                            ],
                           )
-                          ),
+                      ),
 
-      ///         BUTTON FOR ADDING RESTAURANT
+                      ///         BUTTON FOR ADDING RESTAURANT
 
 
                     );
 
-                  });
-            }
-            return Center(child: CircularProgressIndicator(semanticsLabel: "CONTENT IS LOADING..",));
-          },
+                });
+          }
+          return CircularProgressIndicator();
+        },
 
       ),
     );
