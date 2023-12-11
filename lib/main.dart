@@ -6,6 +6,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:statemanagement/SECONFPAGE/seconfpage.dart';
 import 'package:statemanagement/SIGNUPPAGE/signup.dart';
 import 'package:statemanagement/SPLASH%20SCREEN/splash.dart';
+import 'package:statemanagement/TESTCODE/api%20testing/api.dart';
 import 'package:statemanagement/TESTCODE/testing.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:statemanagement/firebase_options.dart';
@@ -43,7 +44,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
 
-      home://homepage() //splash(),
+      home://test()//homepage() //splash(),
 
       //test()
 
