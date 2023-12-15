@@ -6,10 +6,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:statemanagement/ADD%20YOUR%20BUISNESS/addyourbuisness.dart';
 import 'package:statemanagement/APPBAR/appbar.dart';
 import 'package:statemanagement/FIREBASE%20DATAS/PROFILE/profile.dart';
 import 'package:statemanagement/FIREBASE%20DATAS/RESTAURANT/restaurant.dart';
+import 'package:statemanagement/FIREBASE%20DATAS/SPORTS/sports.dart';
 import 'package:statemanagement/FIREBASE%20DATAS/TAXI/taxi.dart';
+import 'package:statemanagement/FIREBASE%20DATAS/panchayath/initialpage.dart';
 import 'package:statemanagement/LOGINPAGE/login.dart';
 import 'package:statemanagement/LOGINPAGE/logindata.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -93,10 +96,20 @@ class _homepageState extends State<homepage> {
 
               //Drawer rows
               //Row1 "HOME"
-              TextButton(onPressed: () {}, child: Text("HOME")),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ClayContainer(child: TextButton(onPressed: () {}, child: Text("HOME"))),
+              ),
 
               //ROW2 "exit"
-              TextButton(onPressed: () {Exit(context);}, child: Text("Exit")),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ClayContainer(child: TextButton(onPressed: () {Exit(context);}, child: Text("Exit"))),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ClayContainer(child: TextButton(onPressed: () {Navigator.of(context).push(MaterialPageRoute(builder: (context){return addbuisness();}));}, child: Text("ADD YOUR BUISNESS"))),
+              ),
             ],
           ),
         ),
@@ -196,7 +209,7 @@ class _homepageState extends State<homepage> {
                                 child: Column(
                                   children: [
                                     Text("panchayath"),
-                                    TextButton(onPressed: (){},child: Icon(Icons.house),),
+                                    TextButton(onPressed: (){Navigator.of(context).push(MaterialPageRoute(builder: (context){return initial();}));},child: Icon(Icons.house),),
                                   ],
                                 ),
                               ),
@@ -283,7 +296,7 @@ class _homepageState extends State<homepage> {
                                 child: Column(
                                   children: [
                                     Text("Sports"),
-                                    TextButton(onPressed: (){},child: Icon(Icons.sports_cricket),),
+                                    TextButton(onPressed: (){Navigator.of(context).push(MaterialPageRoute(builder: (context){return sports();}));},child: Icon(Icons.sports_cricket),),
                                   ],
                                 ),
                               ),
@@ -406,37 +419,37 @@ class _homepageState extends State<homepage> {
                 ///        SECOND CONTAINER ENDS HERE
                 ///@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-           Column(
-            children: [
-
-
-              ElevatedButton(
-                 onPressed: () {
-                   setState(() {
-                    if (check == true) {
-                       check = false;
-                     } else {
-                       check = true;
-                     }
-                   });
-                 },
-                 child: Text("check"),
-               ),
-///          CONTAINER FOR IMAGE SLIDE
-           Container(
-             width: MediaQuery.of(context).size.width,
-             height: 180,
-             color: Colors.green,
-             child: ListView(
-               children:[ WebViewWidget(
-                 controller: check ? controller:next,
-               ),
-             ]
-             ),
-
-           )
-             ],
-           )
+//            Column(
+//             children: [
+//
+//
+//               ElevatedButton(
+//                  onPressed: () {
+//                    setState(() {
+//                     if (check == true) {
+//                        check = false;
+//                      } else {
+//                        check = true;
+//                      }
+//                    });
+//                  },
+//                  child: Text("check"),
+//                ),
+// ///          CONTAINER FOR IMAGE SLIDE
+//            Container(
+//              width: MediaQuery.of(context).size.width,
+//              height: 180,
+//              color: Colors.green,
+//              child: ListView(
+//                children:[ WebViewWidget(
+//                  controller: check ? controller:next,
+//                ),
+//              ]
+//              ),
+//
+//            )
+//              ],
+//            )
               ],
             ),
           ),

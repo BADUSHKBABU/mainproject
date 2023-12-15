@@ -13,27 +13,36 @@ class _addbuisnessState extends State<addbuisness> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(appBar: AppBar(title: Text("ADD YOUR BUISNESS"),),
       body: Column(
         children: [
-          TextFormField(
-            controller: buisnessname,
-              decoration: InputDecoration(
-                hintText: "Enter your buisness",
-                border: OutlineInputBorder()
-              ),
-          ), TextFormField(
-            controller: name,
-              decoration: InputDecoration(
-                hintText: "Enter your name",
-                border: OutlineInputBorder()
-              ),
-          ), TextFormField(
-            controller: mobile,
-              decoration: InputDecoration(
-                hintText: "Enter your phone number",
-                border: OutlineInputBorder()
-              ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextFormField(
+              controller: buisnessname,
+                decoration: InputDecoration(
+                  hintText: "Enter your buisness type",
+                  border: OutlineInputBorder()
+                ),
+            ),
+          ), Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextFormField(
+              controller: name,
+                decoration: InputDecoration(
+                  hintText: "Enter your name",
+                  border: OutlineInputBorder()
+                ),
+            ),
+          ), Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextFormField(
+              controller: mobile,
+                decoration: InputDecoration(
+                  hintText: "Enter your phone number",
+                  border: OutlineInputBorder()
+                ),
+            ),
           ),
           ElevatedButton(onPressed: (){_openWhatsAppWithMessage();}, child: Text("SEND"))
 
@@ -60,7 +69,7 @@ _openWhatsAppWithMessage() async {
   String encodedMessage2 = Uri.encodeComponent(mobilenumber);
 
   // Construct the full WhatsApp URL with the phone number and message
-  String whatsappUrl = "$phoneNumber&text=$encodedMessage, $encodedMessage1 , $encodedMessage2";
+  String whatsappUrl = "$phoneNumber&text= buisnesss type:\n $encodedMessage,\n\n name:\n $encodedMessage1 ,\n\n phone:\n $encodedMessage2 ";
   // String whatsappUrl1 = "$phoneNumber&text=$encodedMessage1";
   // String whatsappUrl2 = "$phoneNumber&text=$encodedMessage2";
 
