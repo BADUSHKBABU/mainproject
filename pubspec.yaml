@@ -46,6 +46,8 @@ dependencies:
   webview_flutter: ^4.4.2
   email_validator: ^2.1.17
   url_launcher: ^6.2.2
+  mailto: ^2.0.0
+
 
 
 
@@ -79,6 +81,7 @@ flutter:
      - assets/udumbannoorschool.jpg
      - assets/restaurant.jpg
      - assets/taxi.jpg
+     - assets/thattakuzha.jpg
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

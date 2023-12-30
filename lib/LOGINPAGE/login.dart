@@ -10,6 +10,8 @@ import 'package:statemanagement/SIGNUPPAGE/signup.dart';
 import 'package:statemanagement/Sharedpreference/savedata.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../TESTCODE/testing.dart';
+
 final data="userLoginCredential";
 class loginpage extends StatefulWidget {
   const loginpage({super.key});
@@ -19,6 +21,7 @@ class loginpage extends StatefulWidget {
 }
 
 class _loginpageState extends State<loginpage> {
+  bool noid=false;
 
 
   //          CREATING BLUEPRINT OF FIREBASE DATA AS collection
@@ -117,12 +120,13 @@ void dispose()
 ///                                            LOGIN BUTTON
 //                                           ==============
                         ElevatedButton(onPressed: () {
-                           login();
+                           login(context);
 
 
                                                                     // savelogincredential(context);
                                                                     // provider.getdatafromloginpage(username.text);
                         }, child: Text("login")),
+
 
 
 //                                            SIGNUP BUTTON
@@ -132,7 +136,8 @@ void dispose()
                         ElevatedButton(onPressed: () {
                           Navigator.of(context).push(
                               MaterialPageRoute(builder: (context) {
-                                return signup();
+                                return signuppage();
+                                //Signup on test.dart for testing code ...original at signup
                               }));
                         },
                             child: Text("Signup")),
@@ -168,7 +173,7 @@ void dispose()
 
 
 //FIREBASE AUTHENTICATION
-  login() async
+  login(context) async
   {
     showDialog(context: context, barrierDismissible: false,builder: (context){return Center(child: CircularProgressIndicator());});
 
@@ -184,12 +189,25 @@ void dispose()
            }));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
+
+        ckeckinglogin(context);
+
         print('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
+      }
+
+      else if (e.code == 'wrong-password') {
         print('Wrong password provided for that user.');
       }
       print(e);
 
+    }
+
+  }
+  ckeckinglogin(context)
+  {
+    if(noid==true)
+    {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("no username found")));
     }
 
   }

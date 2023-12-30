@@ -24,52 +24,50 @@ class _restaurantState extends State<restaurant> {
       body:StreamBuilder(
           stream: hotel.snapshots(),
           builder: (context,snapshot){
-            if (snapshot.hasData)
-            {
-              return ListView.builder(
-                  itemCount:snapshot.data!.docs.length,
-                  itemBuilder: (context,index){
-                    final DocumentSnapshot documentSnapshot=snapshot.data!.docs[index];
-
-                    return
-
-                      ClayContainer(
-                      width: MediaQuery.of(context).size.width/6,
-                      height: MediaQuery.of(context).size.height/6,
-                      color: Colors.white,
-                      child:
-                          Container(
-                              color: Colors.grey,
-                              child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Center(
-                                child: Container(child: Column(mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Text("RESTAURANT NAME : ${documentSnapshot["name"]}",style: TextStyle(fontSize: 20,color: Colors.white,)),
-                                    Text("  MOBILE NUMBER : ${documentSnapshot["mobile"]}",style: TextStyle(fontSize: 20,color: Colors.white,)),
-                                    Text("  PLACE : ${documentSnapshot["place"]}",style: TextStyle(fontSize: 20,color: Colors.white,)),
-
-                                  ],
-                                ),),
-                              ),
-
-                             ],
-                          )
-                          ),
-
-      ///         BUTTON FOR ADDING RESTAURANT
-
-
-                    );
-
-                  });
+            if(snapshot.hasError){
+              print(snapshot.error);
             }
-            return Center(child: CircularProgressIndicator(semanticsLabel: "CONTENT IS LOADING..",));
-          },
+            if (!snapshot.hasData)
+            {
 
-      ),
+
+            return Center(child: CircularProgressIndicator(semanticsLabel: "CONTENT IS LOADING..",));
+          }
+
+    return ListView.builder(
+    itemCount:snapshot.data!.docs.length,
+    itemBuilder: (context,index){
+    final DocumentSnapshot documentSnapshot=snapshot.data!.docs[index];
+
+    return ClayContainer(
+    width: MediaQuery.of(context).size.width/6,
+    height: MediaQuery.of(context).size.height/6,
+    color: Colors.white,
+    child:
+    Container(
+    color: Colors.grey,
+    child: Center(
+    child:  Column(mainAxisAlignment: MainAxisAlignment.start,
+    children: [
+    Text("RESTAURANT NAME :${documentSnapshot["name"]}",style: TextStyle(fontSize: 20,color: Colors.white,)),
+    Text("MOBILE NUMBER :${documentSnapshot["mobile"]}",style: TextStyle(fontSize: 20,color: Colors.white,)),
+    Text("  PLACE : ${documentSnapshot["place"]}",style: TextStyle(fontSize: 20,color: Colors.white,)),
+
+    ],
+    ),
+    )
+    ),
+
+    ///         BUTTON FOR ADDING RESTAURANT
+
+
     );
 
+    });}
+
+
+    )
+    );
   }
 }
 

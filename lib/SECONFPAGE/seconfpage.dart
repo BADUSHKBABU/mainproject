@@ -4,10 +4,12 @@ import 'package:clay_containers/clay_containers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mailto/mailto.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:statemanagement/ADD%20YOUR%20BUISNESS/addyourbuisness.dart';
 import 'package:statemanagement/APPBAR/appbar.dart';
+import 'package:statemanagement/FIREBASE%20DATAS/POSTOFFICE/postoffice.dart';
 import 'package:statemanagement/FIREBASE%20DATAS/PROFILE/profile.dart';
 import 'package:statemanagement/FIREBASE%20DATAS/RESTAURANT/restaurant.dart';
 import 'package:statemanagement/FIREBASE%20DATAS/SPORTS/sports.dart';
@@ -15,7 +17,10 @@ import 'package:statemanagement/FIREBASE%20DATAS/TAXI/taxi.dart';
 import 'package:statemanagement/FIREBASE%20DATAS/panchayath/initialpage.dart';
 import 'package:statemanagement/LOGINPAGE/login.dart';
 import 'package:statemanagement/LOGINPAGE/logindata.dart';
+import 'package:statemanagement/TESTCODE/testing.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+
 
 
 
@@ -101,16 +106,21 @@ class _homepageState extends State<homepage> {
                 child: ClayContainer(child: TextButton(onPressed: () {}, child: Text("HOME"))),
               ),
 
-              //ROW2 "exit"
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ClayContainer(child: TextButton(onPressed: () {Exit(context);}, child: Text("Exit"))),
-              ),
+
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ClayContainer(child: TextButton(onPressed: () {Navigator.of(context).push(MaterialPageRoute(builder: (context){return addbuisness();}));}, child: Text("ADD YOUR BUISNESS"))),
               ),
-            ],
+     // Padding(
+              //   padding: const EdgeInsets.all(8.0),
+              //   child: ClayContainer(child: TextButton(onPressed: () {Navigator.of(context).push(MaterialPageRoute(builder: (context){return MyHomePage();}));}, child: Text("Contact us on mail"))),
+              //
+              // ),
+
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ClayContainer(child: TextButton(onPressed: () {Exit(context);}, child: Text("Exit"))),
+              ),],
           ),
         ),
         ///        END OF DRAWER
@@ -261,6 +271,41 @@ class _homepageState extends State<homepage> {
                                   children: [
                                     Text("Shops"),
                                     TextButton(onPressed: (){},child: Icon(Icons.shopping_basket),),
+                                  ],
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                        Column(///ADDING COLUMN INSIDE THE ROW , CONTAINER ITSELF IS A ROW ,WE ADDING 2 COMPONENTS IN EACH COLUMN
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ClayContainer(curveType: CurveType.convex,
+                                spread: 1,
+                                width: 80,
+                                height: 100,
+                                color: Colors.white,
+                                child: Column(
+                                  children: [
+                                    Text("post office"),
+                                    TextButton(onPressed: (){Navigator.of(context).push(MaterialPageRoute(builder: (context){return postoffice();}));},child: Icon(Icons.local_post_office),),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ClayContainer(curveType: CurveType.convex,
+                                spread: 1,
+                                width: 80,
+                                height: 100,
+                                color: Colors.white,
+                                child: Column(
+
+                                  children: [
+                                    Center(child: Text("village \noffice")),
+                                    Center(child: TextButton(onPressed: (){},child: Icon(Icons.holiday_village_rounded),)),
                                   ],
                                 ),
                               ),
@@ -460,8 +505,8 @@ class _homepageState extends State<homepage> {
   Future Exit(context) async
   {
     final share=await SharedPreferences.getInstance();
-    share.clear();
-    Navigator.of(context).push(MaterialPageRoute(builder: (context){return loginpage();}));
+
+    FirebaseAuth.instance.signOut();
   }
 
   ///PROFILE BUTTON
@@ -469,6 +514,56 @@ class _homepageState extends State<homepage> {
   {
     await Navigator.of(context).push(MaterialPageRoute(builder: (context){return profile();}));
   }
+
+
+
+  void sendEmail() async {
+    final mailtoLink = Mailto(
+      to: ['2badushbabu2@gmail.com'],
+      subject: 'Subject',
+      body: 'Hello, this is the body of the email.',
+    );
+
+    // Convert the Mailto instance to a string and launch the URL
+    final urlString = '$mailtoLink';
+    if (await canLaunch(urlString)) {
+      await launch(urlString);
+    } else {
+      print('Could not launch email');
+    }
+  }
+
+
+  openWhatsAppWithMessage() async {
+    // The phone number or WhatsApp link you want to open
+    String phoneNumber = "whatsapp://send?phone=8156865011";
+
+    // The message you want to send (optional)
+    String buisness = buisnessname.text;
+    String _name=name.text;
+    String mobilenumber=mobile.text;
+
+    // Encode the message for the URL
+    String encodedMessage = Uri.encodeComponent(buisness);
+    String encodedMessage1 = Uri.encodeComponent(_name);
+    String encodedMessage2 = Uri.encodeComponent(mobilenumber);
+
+    // Construct the full WhatsApp URL with the phone number and message
+    String whatsappUrl = "$phoneNumber&text= buisnesss type:\n $encodedMessage,\n\n name:\n $encodedMessage1 ,\n\n phone:\n $encodedMessage2 ";
+    // String whatsappUrl1 = "$phoneNumber&text=$encodedMessage1";
+    // String whatsappUrl2 = "$phoneNumber&text=$encodedMessage2";
+
+    try {
+      // Attempt to launch the WhatsApp app with the specified phone number and message
+      await launch(whatsappUrl);
+
+    } catch (e) {
+      // Handle any exceptions or errors
+      print('Error launching WhatsApp: $e');
+      // Optionally, you can provide a fallback or show an error message to the user
+    }
+  }
+
 
 }
 
