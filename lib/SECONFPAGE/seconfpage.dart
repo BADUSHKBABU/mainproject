@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:statemanagement/ADD%20YOUR%20BUISNESS/addyourbuisness.dart';
 import 'package:statemanagement/APPBAR/appbar.dart';
+import 'package:statemanagement/CONTACT%20%20US/contactus.dart';
 import 'package:statemanagement/FIREBASE%20DATAS/POSTOFFICE/postoffice.dart';
 import 'package:statemanagement/FIREBASE%20DATAS/PROFILE/profile.dart';
 import 'package:statemanagement/FIREBASE%20DATAS/RESTAURANT/restaurant.dart';
@@ -20,6 +21,8 @@ import 'package:statemanagement/LOGINPAGE/logindata.dart';
 import 'package:statemanagement/TESTCODE/testing.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:worldtime/worldtime.dart';
+import 'dart:async';
 
 
 
@@ -31,7 +34,21 @@ class homepage extends StatefulWidget {
   State<homepage> createState() => _homepageState();
 }
 int currentpageindex=0;
+
+
+String _currentTime="";
+@override
 class _homepageState extends State<homepage> {
+///CLOCK
+  void initState() {
+    super.initState();
+    // Initialize the clock with the current time
+    _updateTime();
+    // Update the time every second
+    Timer.periodic(Duration(seconds: 1), (timer) {
+      _updateTime();
+    });
+  }
   final user=FirebaseAuth.instance.currentUser!;
 
 
@@ -82,7 +99,7 @@ class _homepageState extends State<homepage> {
         ///       BOTTOM NAVIGATION BAR ENDS HERE
         ///@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-        appBar: PreferredSize(
+        appBar: const PreferredSize(
           child: aPPBAR(),
           preferredSize: Size.fromHeight(50),
         ),
@@ -111,16 +128,20 @@ class _homepageState extends State<homepage> {
                 padding: const EdgeInsets.all(8.0),
                 child: ClayContainer(child: TextButton(onPressed: () {Navigator.of(context).push(MaterialPageRoute(builder: (context){return addbuisness();}));}, child: Text("ADD YOUR BUISNESS"))),
               ),
-     // Padding(
-              //   padding: const EdgeInsets.all(8.0),
-              //   child: ClayContainer(child: TextButton(onPressed: () {Navigator.of(context).push(MaterialPageRoute(builder: (context){return MyHomePage();}));}, child: Text("Contact us on mail"))),
-              //
-              // ),
+     Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ClayContainer(child: TextButton(onPressed: () {Navigator.of(context).push(MaterialPageRoute(builder: (context){return contactus();}));}, child: Text("CONTACT US"))),
+
+              ),
 
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ClayContainer(child: TextButton(onPressed: () {Exit(context);}, child: Text("Exit"))),
-              ),],
+              ),
+            Padding(
+              padding: const EdgeInsets.only(top: 250),
+              child: Center(child: Text(_currentTime,style: TextStyle(fontSize: 40,color: Colors.blue),)),
+            )],
           ),
         ),
         ///        END OF DRAWER
@@ -564,6 +585,12 @@ class _homepageState extends State<homepage> {
     }
   }
 
+  void _updateTime() {
+    setState(() {
+      _currentTime = DateTime.now().toString().substring(11, 19);
+      // Formats the time as HH:MM:SS
+    });
+  }
 
 }
 

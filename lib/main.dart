@@ -44,7 +44,8 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
 
-      home://test()//homepage() //splash(),
+      home:
+      //test()//homepage() //splash(),
 
       //test()
 
@@ -65,14 +66,14 @@ class MyApp extends StatelessWidget {
           }
           else
             return loginpage();
-        },
-      )
+        },)
+      );
 
              // FIREBASE CODE ENDS HERE
              // =======================
       //loginpage()//test()
       //splash()
       //loginpage(),
-    );
+
   }
 }
