@@ -4,13 +4,14 @@ import 'package:provider/provider.dart';
 import 'package:statemanagement/APPBAR/appbar.dart';
 import 'package:statemanagement/LOGINPAGE/logindata.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:statemanagement/SECONFPAGE/seconfpage.dart';
+import 'dart:io';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:statemanagement/SIGNUPPAGE/signup.dart';
 import 'package:statemanagement/Sharedpreference/savedata.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../TESTCODE/testing.dart';
+import '../homepage/seconfpage.dart';
 
 final data="userLoginCredential";
 class loginpage extends StatefulWidget {
@@ -19,9 +20,9 @@ class loginpage extends StatefulWidget {
   @override
   State<loginpage> createState() => _loginpageState();
 }
-
+final formkey=GlobalKey<FormState>();
 class _loginpageState extends State<loginpage> {
-  bool noid=false;
+  bool noid = false;
 
 
   //          CREATING BLUEPRINT OF FIREBASE DATA AS collection
@@ -34,17 +35,16 @@ class _loginpageState extends State<loginpage> {
   // TEXT EDITING CONTROLER FOR USERNAME,PASSWORD,AND MAIL
   //=================================================================
 
-  final  password = TextEditingController();
-  final  email = TextEditingController();
+  final password = TextEditingController();
+  final email = TextEditingController();
 
   //=================================================================
-@override
-void dispose()
-{
-  email.dispose();
-  password.dispose();
-  super.dispose();
-}
+  @override
+  void dispose() {
+    email.dispose();
+    password.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,65 +84,75 @@ void dispose()
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Text("LOGIN TO KNOW ALL ABOUT UDUMBANNOOR",
+                    child: GlassmorphicContainer(width:MediaQuery.of(context).size.width,blur: 20,border:20,borderGradient:LinearGradient(colors: [Colors.white10]),borderRadius: 20,height: 400,linearGradient:LinearGradient(colors: [Colors.greenAccent]) ,
+                      child: Form(
+                        key: formkey,
+                        child: Column(
+                          children: [
+                            Text("LOGIN TO KNOW ALL ABOUT UDUMBANNOOR",
 
-                          //LOGIN TEXTFIELD
-//                                          ====================
-                          //USER NAME TEXT FIELD
-                          style: TextStyle(
-                              fontSize: 20, color: Colors.yellow),),
-                        TextField(
-                          controller: email,
-                          decoration: InputDecoration(
-                              filled: true,
-                              fillColor: Colors.white,
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10))
-                          ),
+                              //LOGIN TEXTFIELD
+                        //                                          ====================
+                              //USER NAME TEXT FIELD
+                              style: TextStyle(
+                                  fontSize: 20, color: Colors.yellow),),
+                            TextFormField(
+                              controller: email,
+                              validator: _validateEmail,
+                              decoration: InputDecoration(
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10))
+                              ),
+                            ),
+                            SizedBox(height: 10,),
+
+
+                            //          PASSWORD TEXT FIELD
+                            TextFormField(
+                              controller: password,
+                              validator: _validatePassword,
+                              obscureText: true,
+                              decoration: InputDecoration(filled: true,
+                                  fillColor: Colors.white,
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10))
+                              ),
+                            ),
+
+
+                            ///                                            LOGIN BUTTON
+                        //                                           ==============
+                            ElevatedButton(onPressed: () {
+                              if(formkey.currentState!.validate()){
+                                login(context);
+                              }
+
+
+                              // savelogincredential(context);
+                              // provider.getdatafromloginpage(username.text);
+                            }, child: Text("login")),
+
+
+                        //                                            SIGNUP BUTTON
+                        //                                          =================
+                            Text("New to the app? \nSignup", style: TextStyle(
+                                fontSize: 20, color: Colors.green),),
+                            ElevatedButton(onPressed: () {
+                              Navigator.of(context).push(
+                                  MaterialPageRoute(builder: (context) {
+                                    return
+                                      signup();
+                                    //signuppage();
+                                    //Signup on test.dart for testing code ...original at signup
+                                  }));
+                            },
+                                child: Text("Signup")),
+                            // Text(login())
+                          ],
                         ),
-                        SizedBox(height: 10,),
-
-
-                        //          PASSWORD TEXT FIELD
-                        TextField(
-                          controller: password,
-                          obscureText: true,
-                          decoration: InputDecoration(filled: true,
-                              fillColor: Colors.white,
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10))
-                          ),
-                        ),
-
-
-///                                            LOGIN BUTTON
-//                                           ==============
-                        ElevatedButton(onPressed: () {
-                           login(context);
-
-
-                                                                    // savelogincredential(context);
-                                                                    // provider.getdatafromloginpage(username.text);
-                        }, child: Text("login")),
-
-
-
-//                                            SIGNUP BUTTON
-//                                          =================
-                        Text("New to the app? \nSignup", style: TextStyle(
-                            fontSize: 20, color: Colors.green),),
-                        ElevatedButton(onPressed: () {
-                          Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) {
-                                return signuppage();
-                                //Signup on test.dart for testing code ...original at signup
-                              }));
-                        },
-                            child: Text("Signup")),
-                        // Text(login())
-                      ],
+                      ),
                     ),
                   ),
                 ),
@@ -169,27 +179,25 @@ void dispose()
   }
 
 
-
-
-
 //FIREBASE AUTHENTICATION
   login(context) async
   {
-    showDialog(context: context, barrierDismissible: false,builder: (context){return Center(child: CircularProgressIndicator());});
+    showDialog(context: context, barrierDismissible: false, builder: (context) {
+      return Center(child: CircularProgressIndicator());
+    });
 
     try {
-       await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: email.text,
-          password: password.text,
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email.text,
+        password: password.text,
 
       );
-       Navigator.of(context).push(
-           MaterialPageRoute(builder: (context) {
-             return homepage();
-           }));
+      Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) {
+            return homepage();
+          }));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-
         ckeckinglogin(context);
 
         print('No user found for that email.');
@@ -199,16 +207,25 @@ void dispose()
         print('Wrong password provided for that user.');
       }
       print(e);
-
     }
-
   }
-  ckeckinglogin(context)
-  {
-    if(noid==true)
-    {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("no username found")));
-    }
 
+  ckeckinglogin(context) {
+    if (noid == true) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("no username found")));
+    }
+  }
+
+  String? _validateEmail(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your email';
+    }
+  }
+
+  String? _validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your password';
+    }
   }
 }
