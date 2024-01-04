@@ -1,6 +1,6 @@
 
 
-//THIS CODE IS REDIRECTED YOU TO LOGIN PAGE ONCE YOU SIGNUP
+///THIS CODE IS REDIRECTED YOU TO LOGIN PAGE ONCE YOU SIGNUP
 //============================================================
 import 'package:flutter/material.dart';
 import 'package:statemanagement/LOGINPAGE/login.dart';
