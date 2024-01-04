@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:statemanagement/LOGINPAGE/login.dart';
 
 
-import '../homepage/seconfpage.dart';
+import '../homepage/homepage.dart';
 class splash extends StatefulWidget {
   const splash({super.key});
 

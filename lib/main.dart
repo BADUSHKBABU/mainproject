@@ -11,7 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:statemanagement/firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'homepage/seconfpage.dart';
+import 'homepage/homepage.dart';
 
 
 void main() async{
