@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:statemanagement/LOGINPAGE/login.dart';
 import 'package:statemanagement/LOGINPAGE/logindata.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:statemanagement/SECONFPAGE/seconfpage.dart';
 import 'package:statemanagement/SIGNUPPAGE/signup.dart';
 import 'package:statemanagement/SPLASH%20SCREEN/splash.dart';
 import 'package:statemanagement/TESTCODE/api%20testing/api.dart';
@@ -11,6 +10,8 @@ import 'package:statemanagement/TESTCODE/testing.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:statemanagement/firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
+import 'homepage/seconfpage.dart';
 
 
 void main() async{
@@ -45,6 +46,7 @@ class MyApp extends StatelessWidget {
       ),
 
       home:
+      //imagepick()
       //test()//homepage() //splash(),
 
       //test()

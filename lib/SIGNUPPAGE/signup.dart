@@ -4,6 +4,10 @@
 //==================================================================//
 /////////////////////////////////////////////////////////////////////
 
+
+import 'dart:io';
+
+import 'package:image_picker/image_picker.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -17,8 +21,9 @@ class signup extends StatefulWidget {
   @override
   State<signup> createState() => _signupState();
 }
-
+File ?  returnedimage;
 class _signupState extends State<signup> {
+
 
 //FOR SIGNUP YOU NEED TO ENTER USERNAME<PASSWORD AND MAIL ID//
 //////////////////////////////////////////////////////////////
@@ -105,7 +110,7 @@ final formkey=GlobalKey<FormState>();
                     print('Email: ${email_id.text}');
                     print('Password: ${password.text}');
                     signup();
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context){return redirectedtologinpage();}));
+
               }
 
 
@@ -127,7 +132,9 @@ final formkey=GlobalKey<FormState>();
           .createUserWithEmailAndPassword(
         email: email_id.text,
         password: password.text,
+
       );
+      Navigator.of(context).push(MaterialPageRoute(builder: (context){return redirectedtologinpage();}));
 
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -160,6 +167,20 @@ final formkey=GlobalKey<FormState>();
     }
     return null;
   }
+Future imagepickergallery() async{
+  final _image=await ImagePicker().pickImage(source: ImageSource.gallery);
+  if(_image==null) return;
+  setState(() {
+    returnedimage=File(_image!.path);
+  });
+}
+Future imagepickercamera() async{
+  final _image=await ImagePicker().pickImage(source: ImageSource.camera);
+  if(_image==null) return;
+  setState(() {
+    returnedimage=File(_image!.path);
+  });
+}
 
 }
 

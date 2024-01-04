@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:statemanagement/LOGINPAGE/login.dart';
-import 'package:statemanagement/SECONFPAGE/seconfpage.dart';
+
+
+import '../homepage/seconfpage.dart';
 class splash extends StatefulWidget {
   const splash({super.key});
 
