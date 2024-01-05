@@ -84,7 +84,7 @@ class _loginpageState extends State<loginpage> {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: SingleChildScrollView(
-                    child: GlassmorphicContainer(width:MediaQuery.of(context).size.width,blur: 20,border:20,borderGradient:LinearGradient(colors: [Colors.white10]),borderRadius: 20,height: 400,linearGradient:LinearGradient(colors: [Colors.greenAccent]) ,
+                    child: GlassmorphicContainer(width:MediaQuery.of(context).size.width,blur: 20,border:20,borderGradient:LinearGradient(colors: [Colors.black]),borderRadius: 20,height: 400,linearGradient:LinearGradient(colors: [Colors.white]) ,
                       child: Form(
                         key: formkey,
                         child: Column(
@@ -198,10 +198,19 @@ class _loginpageState extends State<loginpage> {
           }));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        ckeckinglogin(context);
+        // Display a message if user doesn't exist
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) {
+            return Text("user not found");
+          },
+        );
+
 
         print('No user found for that email.');
       }
+
 
       else if (e.code == 'wrong-password') {
         print('Wrong password provided for that user.');
@@ -210,12 +219,7 @@ class _loginpageState extends State<loginpage> {
     }
   }
 
-  ckeckinglogin(context) {
-    if (noid == true) {
-      ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("no username found")));
-    }
-  }
+
 
   String? _validateEmail(String? value) {
     if (value == null || value.isEmpty) {
