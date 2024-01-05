@@ -37,25 +37,18 @@ class _taxiState extends State<taxi> {
 
                     ClayContainer(
                       width: MediaQuery.of(context).size.width/6,
-                      height: MediaQuery.of(context).size.height/6,
+                      height: 100,
                       color: Colors.white,
                       child:
                       Container(
-                          color: Colors.grey,
-                          child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          color: Colors.black,
+                          child: ListView(
                             children: [
-                              Center(
-                                child: Container(child: Column(mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Text("TAXI NAME : ${documentSnapshot["name"]}",style: TextStyle(fontSize: 20,color: Colors.white,)),
-                                    Text("  MOBILE NUMBER : ${documentSnapshot["mobile"]}",style: TextStyle(fontSize: 20,color: Colors.white,)),
-                                    Text("  TAXI TYPE : ${documentSnapshot["type"]}",style: TextStyle(fontSize: 20,color: Colors.white,)),
-                                    Text("  PLACE : ${documentSnapshot["place"]}",style: TextStyle(fontSize: 20,color: Colors.white,)),
-
-                                  ],
-                                ),),
-                              ),
-
+                                    Center(child: Text(documentSnapshot["name"],style: TextStyle(fontSize: 20,color: Colors.white,fontWeight: FontWeight.bold))),
+                                    Center(child: Text(documentSnapshot["place"],style: TextStyle(fontSize: 20,color: Colors.white,fontWeight: FontWeight.bold))),
+                                    Center(child: Text(documentSnapshot["type"],style: TextStyle(fontSize: 20,color: Colors.white,fontWeight: FontWeight.bold))),
+                                    Center(child: Text(documentSnapshot["mobile"],style: TextStyle(fontSize: 20,color: Colors.white,fontWeight: FontWeight.bold))),
+                            Divider(thickness: 10,color: Colors.white,)
                             ],
                           )
                       ),
