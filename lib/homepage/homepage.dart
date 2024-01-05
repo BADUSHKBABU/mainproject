@@ -10,6 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:statemanagement/ADD%20YOUR%20BUISNESS/addyourbuisness.dart';
 import 'package:statemanagement/APPBAR/appbar.dart';
 import 'package:statemanagement/CONTACT%20%20US/contactus.dart';
+import 'package:statemanagement/FIREBASE%20DATAS/AKSHAYA/akshaya.dart';
 import 'package:statemanagement/FIREBASE%20DATAS/POSTOFFICE/postoffice.dart';
 import 'package:statemanagement/FIREBASE%20DATAS/PROFILE/profile.dart';
 import 'package:statemanagement/FIREBASE%20DATAS/RESTAURANT/restaurant.dart';
@@ -23,10 +24,6 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:worldtime/worldtime.dart';
 import 'dart:async';
-
-
-
-
 class homepage extends StatefulWidget {
   const homepage({super.key});
   static const IconData person = IconData(0xe491, fontFamily: 'MaterialIcons');
@@ -456,7 +453,7 @@ class _homepageState extends State<homepage> {
                                 child: Column(
                                   children: [
                                     Text("Akshaya \nenter",textAlign: TextAlign.center,),
-                                    TextButton(onPressed: (){},child: Icon(Icons.e_mobiledata),),
+                                    TextButton(onPressed: (){Navigator.of(context).push(MaterialPageRoute(builder: (context){return akshya();}));},child: Icon(Icons.e_mobiledata),),
                                   ],
                                 ),
                               ),
