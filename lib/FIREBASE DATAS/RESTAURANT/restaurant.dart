@@ -41,17 +41,23 @@ class _restaurantState extends State<restaurant> {
 
     return ClayContainer(
     width: MediaQuery.of(context).size.width/6,
-    height: MediaQuery.of(context).size.height/6,
+    height: 100,
     color: Colors.white,
     child:
     Container(
-    color: Colors.grey,
+    color: Colors.black,
     child: Center(
-    child:  Column(mainAxisAlignment: MainAxisAlignment.start,
+    child:  ListView(
     children: [
-    Text("RESTAURANT NAME :${documentSnapshot["name"]}",style: TextStyle(fontSize: 20,color: Colors.white,)),
-    Text("MOBILE NUMBER :${documentSnapshot["mobile"]}",style: TextStyle(fontSize: 20,color: Colors.white,)),
-    Text("  PLACE : ${documentSnapshot["place"]}",style: TextStyle(fontSize: 20,color: Colors.white,)),
+    // Center(child: Text("RESTAURANT NAME :",style: TextStyle(fontSize: 20,color: Colors.white,))),
+    Center(child: Text(documentSnapshot["name"],style: TextStyle(fontSize: 25,color: Colors.white,fontWeight: FontWeight.bold),)),
+    Center(child: Text(documentSnapshot["place"],style: TextStyle(fontSize: 25,color: Colors.white,fontWeight: FontWeight.bold),)),
+    Center(child: Text(documentSnapshot["mobile"],style: TextStyle(fontSize: 25,color: Colors.white,fontWeight: FontWeight.bold),)),
+    Divider(color: Colors.white,thickness: 10,)
+
+
+    //Center(child: Text("MOBILE NUMBER :${documentSnapshot["mobile"]}",style: TextStyle(fontSize: 20,color: Colors.white,))),
+   // Center(child: Text("  PLACE : ${documentSnapshot["place"]}",style: TextStyle(fontSize: 20,color: Colors.white,))),
 
     ],
     ),
