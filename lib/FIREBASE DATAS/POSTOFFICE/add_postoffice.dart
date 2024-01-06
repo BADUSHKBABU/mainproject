@@ -13,7 +13,7 @@ class _addpostofficeState extends State<addpostoffice> {
   final TextEditingController name=TextEditingController();
   final TextEditingController mob=TextEditingController();
   final TextEditingController place=TextEditingController();
-  final CollectionReference collectionReference=FirebaseFirestore.instance.collection("postoffice ");
+  final CollectionReference collectionReference=FirebaseFirestore.instance.collection("postoffice");
 
   @override
   Widget build(BuildContext context) {

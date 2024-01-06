@@ -37,27 +37,24 @@ class _postofficeState extends State<postoffice> {
 
                     ClayContainer(
                       width: MediaQuery.of(context).size.width/6,
-                      height: MediaQuery.of(context).size.height/6,
-                      color: Colors.white,
+                      height: 100,
+                      color: Colors.yellowAccent,
                       child:
-                      Container(
-                          color: Colors.grey,
-                          child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Center(
-                                child: Container(height:800,child: Column(mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Text("${documentSnapshot["name"]}",style: TextStyle(fontSize: 20,color: Colors.white,fontWeight: FontWeight.bold)),
-                                    Text("${documentSnapshot["mobile"]}",style: TextStyle(fontSize: 20,color: Colors.white,fontWeight: FontWeight.bold)),
-                                    Text("${documentSnapshot["place"]}",style: TextStyle(fontSize: 20,color: Colors.white,fontWeight: FontWeight.bold)),
-                                    //Text("  PLACE : ${documentSnapshot["location"]}",style: TextStyle(fontSize: 20,color: Colors.white,)),
+                      ListView(
+                        children: [
+                          Center(
+                            child: Container(height:800,child: Column(mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text("${documentSnapshot["name"]}",style: TextStyle(fontSize: 20,color: Colors.black,fontWeight: FontWeight.bold)),
+                                Text("${documentSnapshot["mobile"]}",style: TextStyle(fontSize: 20,color: Colors.black,fontWeight: FontWeight.bold)),
+                                Text("${documentSnapshot["place"]}",style: TextStyle(fontSize: 20,color: Colors.black,fontWeight: FontWeight.bold)),
+                                //Text("  PLACE : ${documentSnapshot["location"]}",style: TextStyle(fontSize: 20,color: Colors.white,)),
 
-                                  ],
-                                ),),
-                              ),
+                              ],
+                            ),),
+                          ),
 
-                            ],
-                          )
+                        ],
                       ),
 
                       ///         BUTTON FOR ADDING RESTAURANT
