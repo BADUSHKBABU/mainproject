@@ -45,6 +45,7 @@
 import 'package:clay_containers/clay_containers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:statemanagement/FIREBASE%20DATAS/AKSHAYA/addakshaya.dart';
 
 class akshya extends StatefulWidget {
   const akshya({super.key});
@@ -58,7 +59,9 @@ class _akshyaState extends State<akshya> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("AKSHAYA CENTER"),shadowColor: Colors.blue,backgroundColor: Colors.blue),
+      appBar: AppBar(title: Text("AKSHAYA CENTER"),shadowColor: Colors.blue,backgroundColor: Colors.blue,actions: [
+        IconButton(onPressed: (){Navigator.of(context).push(MaterialPageRoute(builder: (context){return addAkshaya();}));}, icon: Icon(Icons.add),
+        )],),
       body: StreamBuilder(
         stream:collectionReference.snapshots() ,
         builder: (context,snapshot) {
