@@ -47,8 +47,9 @@ class _postofficeState extends State<postoffice> {
                               Center(
                                 child: Container(height:800,child: Column(mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    Text("RESTAURANT NAME :\n ${documentSnapshot["name"]}",style: TextStyle(fontSize: 20,color: Colors.white,)),
-                                    Text("MOBILE NUMBER :\n ${documentSnapshot["mobile"]}",style: TextStyle(fontSize: 20,color: Colors.white,)),
+                                    Text("${documentSnapshot["name"]}",style: TextStyle(fontSize: 20,color: Colors.white,fontWeight: FontWeight.bold)),
+                                    Text("${documentSnapshot["mobile"]}",style: TextStyle(fontSize: 20,color: Colors.white,fontWeight: FontWeight.bold)),
+                                    Text("${documentSnapshot["place"]}",style: TextStyle(fontSize: 20,color: Colors.white,fontWeight: FontWeight.bold)),
                                     //Text("  PLACE : ${documentSnapshot["location"]}",style: TextStyle(fontSize: 20,color: Colors.white,)),
 
                                   ],

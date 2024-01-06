@@ -11,12 +11,12 @@ class initial extends StatefulWidget {
 class _initialState extends State<initial> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(appBar: AppBar(title:Text("UDUMBANNOOR PANCHAYATH")),
       body: SafeArea(
         child: Column(
           children: [
             Image(image: AssetImage("assets/udumbannoor.jpg")),
-            Image(image: AssetImage("assets/thattakuzha.jpg")),
+            Image(image: AssetImage("assets/thattakuzha.jpg",),fit: BoxFit.cover ),
             ElevatedButton(onPressed: (){Navigator.of(context).push(MaterialPageRoute(builder: (context){return map();}));}, child: Text("map")),
             ElevatedButton(onPressed: (){Navigator.of(context).push(MaterialPageRoute(builder: (context){return panchayathdata();}));}, child: Text("data")),
           ],

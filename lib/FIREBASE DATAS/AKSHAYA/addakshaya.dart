@@ -1,29 +1,30 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class addpostoffice extends StatefulWidget {
-  const addpostoffice({super.key});
+class addAkshaya extends StatefulWidget {
+  const addAkshaya({super.key});
 
   @override
-  State<addpostoffice> createState() => _addpostofficeState();
+  State<addAkshaya> createState() => _addAkshayaState();
 }
 
-class _addpostofficeState extends State<addpostoffice> {
+class _addAkshayaState extends State<addAkshaya> {
 
   final TextEditingController name=TextEditingController();
   final TextEditingController mob=TextEditingController();
   final TextEditingController place=TextEditingController();
-  final CollectionReference collectionReference=FirebaseFirestore.instance.collection("postoffice ");
+  final CollectionReference collectionReference=FirebaseFirestore.instance.collection("akshaya");
 
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      appBar: AppBar(title: Text("ADD POST OFFICE"),),
+      appBar: AppBar(title: Text("ADD YOUR AKSHAYA CENTER"),actions: [IconButton(onPressed: (){addAkshaya();}, icon: Icon(Icons.add))],),
+
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Image(image: AssetImage("assets/India_Post_Logo.svg.PNG")),
-            Text("post office"),
+            //Image(image: AssetImage("assets/restaurant.jpg")),
+            Text("CONTACT NAME"),
             TextFormField(
               controller: name,
               decoration: InputDecoration(
@@ -33,7 +34,7 @@ class _addpostofficeState extends State<addpostoffice> {
               ),
             ),
             SizedBox(height: 30,),
-            Text("MOBILE NUMBER",),
+            Text("CONTACT NUMBER",),
             TextFormField(
               controller: mob,
               decoration: InputDecoration(
@@ -41,9 +42,9 @@ class _addpostofficeState extends State<addpostoffice> {
                   filled: true,
                   fillColor: Colors.grey
               ),
-
-            ),   SizedBox(height: 30,),
-            Text("LOCATION"),
+            ),
+            SizedBox(height: 30,),
+            Text("PLACE"),
             TextFormField(
               controller: place,
               decoration: InputDecoration(
@@ -52,16 +53,6 @@ class _addpostofficeState extends State<addpostoffice> {
                   fillColor: Colors.grey
               ),
             ),
-
-            // Text("PLACE"),
-            // TextFormField(
-            //   controller: place,
-            //   decoration: InputDecoration(
-            //       border: OutlineInputBorder(),
-            //       filled: true,
-            //       fillColor: Colors.grey
-            //   ),
-            // ),
             ElevatedButton(onPressed: (){Add();}, child: Text("ADD"))
           ],
         ),
@@ -72,10 +63,9 @@ class _addpostofficeState extends State<addpostoffice> {
   }
 
   Future Add() async{
-    final data={"name":name.text,
+    final data={"contact":name.text,
       "mobile":mob.text,
-      "place":place.text
-    };
+      "name":place.text};
     collectionReference.add(data);
     Navigator.pop(context);
 
