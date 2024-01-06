@@ -11,9 +11,12 @@ import 'package:statemanagement/ADD%20YOUR%20BUISNESS/addyourbuisness.dart';
 import 'package:statemanagement/APPBAR/appbar.dart';
 import 'package:statemanagement/CONTACT%20%20US/contactus.dart';
 import 'package:statemanagement/FIREBASE%20DATAS/AKSHAYA/akshaya.dart';
+import 'package:statemanagement/FIREBASE%20DATAS/HOSPITALS/hospital.dart';
+import 'package:statemanagement/FIREBASE%20DATAS/MEDICAL%20SHOPS/medicalshop.dart';
 import 'package:statemanagement/FIREBASE%20DATAS/POSTOFFICE/postoffice.dart';
 import 'package:statemanagement/FIREBASE%20DATAS/PROFILE/profile.dart';
 import 'package:statemanagement/FIREBASE%20DATAS/RESTAURANT/restaurant.dart';
+import 'package:statemanagement/FIREBASE%20DATAS/SCHOOLS/school.dart';
 import 'package:statemanagement/FIREBASE%20DATAS/SPORTS/sports.dart';
 import 'package:statemanagement/FIREBASE%20DATAS/TAXI/taxi.dart';
 import 'package:statemanagement/FIREBASE%20DATAS/panchayath/initialpage.dart';
@@ -397,7 +400,7 @@ class _homepageState extends State<homepage> {
                                 child: Column(
                                   children: [
                                     Text("Schools"),
-                                    TextButton(onPressed: (){},child: Icon(Icons.school),),
+                                    TextButton(onPressed: (){Navigator.of(context).push(MaterialPageRoute(builder: (context){return school();}));},child: Icon(Icons.school),),
                                   ],
                                 ),
                               ),
@@ -417,7 +420,7 @@ class _homepageState extends State<homepage> {
                                 child: Column(
                                   children: [
                                     Text("Medical \nshops",textAlign: TextAlign.center,),
-                                    TextButton(onPressed: (){},child: Icon(Icons.health_and_safety),),
+                                    TextButton(onPressed: (){Navigator.of(context).push(MaterialPageRoute(builder: (context){return medicalshop();}));},child: Icon(Icons.health_and_safety),),
                                   ],
                                 ),
                               ),
@@ -432,7 +435,7 @@ class _homepageState extends State<homepage> {
                                 child: Column(
                                   children: [
                                     Text("Hospitals"),
-                                    TextButton(onPressed: (){},child: Icon(Icons.local_hospital_outlined),),
+                                    TextButton(onPressed: (){Navigator.of(context).push(MaterialPageRoute(builder: (context){return hospital();}));},child: Icon(Icons.local_hospital_outlined),),
                                   ],
                                 ),
                               ),
