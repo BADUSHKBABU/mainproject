@@ -84,7 +84,7 @@ class _loginpageState extends State<loginpage> {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: SingleChildScrollView(
-                    child: GlassmorphicContainer(width:MediaQuery.of(context).size.width,blur: 20,border:20,borderGradient:LinearGradient(colors: [Colors.black]),borderRadius: 20,height: 400,linearGradient:LinearGradient(colors: [Colors.white]) ,
+                    child: GlassmorphicContainer(width:MediaQuery.of(context).size.width,blur: 20,border:20,borderGradient:LinearGradient(colors: [Colors.black,Colors.white]),borderRadius: 20,height: 400,linearGradient:LinearGradient(colors: [Colors.white,Colors.black]) ,
                       child: Form(
                         key: formkey,
                         child: Column(
@@ -149,6 +149,7 @@ class _loginpageState extends State<loginpage> {
                                   }));
                             },
                                 child: Text("Signup")),
+                            ElevatedButton(onPressed: (){resetPassword(email.text);}, child: Text("forgot password"))
                             // Text(login())
                           ],
                         ),
@@ -196,27 +197,35 @@ class _loginpageState extends State<loginpage> {
           MaterialPageRoute(builder: (context) {
             return homepage();
           }));
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        // Display a message if user doesn't exist
-        showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (context) {
-            return Text("user not found");
-          },
-        );
-
-
-        print('No user found for that email.');
-      }
-
-
-      else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
-      }
-      print(e);
     }
+    on FirebaseAuthException
+    catch (e) {
+      print("error code is ${e.code}");
+// print(e.toString());
+//       String err=e.toString();
+//       // if (err == 'invalid-credential') {
+//        // Display a message if user doesn't exist
+     await ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.code)));
+     Navigator.pop(context);
+      // showDialog(
+      //     context: context,
+      //     barrierDismissible: false,
+      //     builder: (context) {
+      //       return Text("${e.code}");
+      //     },
+      //   );
+
+
+      //   print('No user found for that email.');
+      // }
+
+
+      // else if (e.code == 'wrong-password') {
+      //   print('Wrong password provided for that user.');
+      // }
+      print("INVALID USERID OR PASSWORD");
+    }
+
   }
 
 
@@ -232,4 +241,11 @@ class _loginpageState extends State<loginpage> {
       return 'Please enter your password';
     }
   }
+
+
+// Function to reset the password
+  Future<void> resetPassword(String email) async {
+    await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+  }
+
 }
