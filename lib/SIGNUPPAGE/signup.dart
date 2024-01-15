@@ -48,11 +48,12 @@ final formkey=GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(appBar: AppBar(title: Text("SIGN-UP "),),
+      //backgroundColor: Colors.blueGrey,
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Image.asset("assets/udumbannoorgate.jpg", fit: BoxFit.fill,),
+            Image.asset("assets/SIGNUP.gif", fit: BoxFit.fill,),
             SizedBox(height: 10,),
 
             //TEXTFIELDS FOR USERNAME & PASSWORD AND MAIL ID//
@@ -69,27 +70,30 @@ final formkey=GlobalKey<FormState>();
 
                   SizedBox(height: 10,),
                   SizedBox(height: 10,),
-                  Text("EMAIL ID", style: TextStyle(fontSize: 20),),
+                  //Text("EMAIL ID", style: TextStyle(fontSize: 20),),
                   TextFormField(
                     controller: email_id,
                      validator: _validateEmail,
+                    decoration: InputDecoration(label: Text("e-mail")),
 
-                    decoration: InputDecoration(filled: true,
-                        fillColor: Colors.grey,
-
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10))
-                    ),
+                    // decoration: InputDecoration(filled: true,
+                    //     fillColor: Colors.grey,
+                    //
+                    //     border: OutlineInputBorder(
+                    //         borderRadius: BorderRadius.circular(10))
+                    // ),
                   ),
-                  Text("PASSWORD", style: TextStyle(fontSize: 20)),
+                 // Text("PASSWORD", style: TextStyle(fontSize: 20)),
                   TextFormField(
+
                     validator: _validatePassword,
                     controller: password,
-                    decoration: InputDecoration(filled: true,
-                        fillColor: Colors.grey,
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10))
-                    ),
+                    // decoration: InputDecoration(filled: true,
+                    //     fillColor: Colors.grey,
+                    //     border: OutlineInputBorder(
+                    //         borderRadius: BorderRadius.circular(10))
+                    // ),
+                    decoration: InputDecoration(label: Text("password")),
                   ),
 
                 ],
@@ -110,7 +114,7 @@ final formkey=GlobalKey<FormState>();
                     print('Email: ${email_id.text}');
                     print('Password: ${password.text}');
                     signup();
-
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context){return redirectedtologinpage();}));
               }
 
 

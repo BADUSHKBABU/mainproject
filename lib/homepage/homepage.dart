@@ -528,6 +528,7 @@ class _homepageState extends State<homepage> {
     final share=await SharedPreferences.getInstance();
 
     FirebaseAuth.instance.signOut();
+    Navigator.pushAndRemoveUntil((context), MaterialPageRoute(builder: (context){return loginpage();}), (route) => false);
   }
 
   ///PROFILE BUTTON
@@ -545,7 +546,7 @@ class _homepageState extends State<homepage> {
       body: 'Hello, this is the body of the email.',
     );
 
-    // Convert the Mailto instance to a string and launch the URL
+    // Convert the Mailto instance to a string and launch the URLd@gmail.com
     final urlString = '$mailtoLink';
     if (await canLaunch(urlString)) {
       await launch(urlString);
