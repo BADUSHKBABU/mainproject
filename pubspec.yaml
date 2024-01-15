@@ -85,6 +85,7 @@ flutter:
      - assets/restaurant.jpg
      - assets/taxi.jpg
      - assets/thattakuzha.jpg
+     - assets/SIGNUP.gif
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
