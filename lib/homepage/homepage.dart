@@ -151,6 +151,11 @@ class _homepageState extends State<homepage> {
                 child: ClayContainer(child: TextButton(onPressed: () {
                   Exit(context);
                 }, child: Text("Exit"))),
+              ),Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ClayContainer(child: TextButton(onPressed: () {
+                  ;
+                }, child: Text("Feedback"))),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 250),
