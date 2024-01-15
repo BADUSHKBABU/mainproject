@@ -141,7 +141,7 @@ class _homepageState extends State<homepage> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ClayContainer(child: TextButton(onPressed: () {
-                  _openWhatsAppWithMessage();
+                  contactUs();
                 }, child: Text("CONTACT US"))),
 
               ),
@@ -153,7 +153,7 @@ class _homepageState extends State<homepage> {
                 }, child: Text("Exit"))),
               ),Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: ClayContainer(child: TextButton(onPressed: () {
+                child: ClayContainer(child: TextButton(onPressed: () {sendEmail()
                   ;
                 }, child: Text("Feedback"))),
               ),
@@ -669,22 +669,47 @@ class _homepageState extends State<homepage> {
     }));
   }
 
+  //
+  // void sendEmail() async {
+  //   final mailtoLink = Mailto(
+  //     to: ['2badushbabu2@gmail.com'],
+  //     subject: 'Subject',
+  //     body: 'Hello, this is the body of the email.',
+  //   );
+  //
+  //   // Convert the Mailto instance to a string and launch the URLd@gmail.com
+  //   final urlString = '$mailtoLink';
+  //   if (await canLaunch(urlString)) {
+  //     await launch(urlString);
+  //   } else {
+  //     print('Could not launch email');
+  //   }
+  // }
 
-  void sendEmail() async {
-    final mailtoLink = Mailto(
-      to: ['2badushbabu2@gmail.com'],
-      subject: 'Subject',
-      body: 'Hello, this is the body of the email.',
+
+   sendEmail() async {
+    // Specify the email address and subject
+    final Uri _emailLaunchUri = Uri(
+      scheme: 'mailto',
+      path: '2badushbabu2@gmail.com',
+      queryParameters: {
+        'subject': 'Hello from Flutter',
+        'body': 'This is the body of the email',
+      },
     );
 
-    // Convert the Mailto instance to a string and launch the URLd@gmail.com
-    final urlString = '$mailtoLink';
-    if (await canLaunch(urlString)) {
-      await launch(urlString);
+    // Check if the device can open the specified URI
+    if (await canLaunch(_emailLaunchUri.toString())) {
+      // Open the email client
+      await launch(_emailLaunchUri.toString());
     } else {
+      // Handle the case where the device cannot open the specified URI
       print('Could not launch email');
     }
-  }
+
+}
+
+
 
 
   openWhatsAppWithMessage() async {
@@ -723,7 +748,7 @@ class _homepageState extends State<homepage> {
     });
   }
 
-  _openWhatsAppWithMessage() async {
+  contactUs() async {
     // The phone number or WhatsApp link you want to open
     String phoneNumber = "whatsapp://send?phone=8156865011";
 
