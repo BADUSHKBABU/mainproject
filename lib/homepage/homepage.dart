@@ -125,7 +125,7 @@ class _homepageState extends State<homepage> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ClayContainer(
-                    child: TextButton(onPressed: () {}, child: Text("HOME"))),
+                    child: TextButton(onPressed: () {Navigator.of(context).push(MaterialPageRoute(builder: (context){return homepage();}));}, child: Text("HOME"))),
               ),
 
 
