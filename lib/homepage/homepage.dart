@@ -39,7 +39,7 @@ int currentpageindex=0;
 String _currentTime="";
 @override
 class _homepageState extends State<homepage> {
-///CLOCK
+  ///CLOCK
   void initState() {
     super.initState();
     // Initialize the clock with the current time
@@ -49,22 +49,25 @@ class _homepageState extends State<homepage> {
       _updateTime();
     });
   }
-  final user=FirebaseAuth.instance.currentUser!;
+
+  final user = FirebaseAuth.instance.currentUser!;
 
 
   bool check = true;
   WebViewController controller = WebViewController()
     ..setJavaScriptMode(JavaScriptMode.unrestricted)
-    ..loadRequest(Uri.parse('https://www.google.com/maps/place/Udumbannoor,+Kerala/@9.9023451,76.8183941,15z/data=!3m1!4b1!4m6!3m5!1s0x3b07c75338a858d9:0x28dd3d3e0ad53ccb!8m2!3d9.9023471!4d76.8201976!16zL20vMGZjemp2?entry=ttu'));
+    ..loadRequest(Uri.parse(
+        'https://www.google.com/maps/place/Udumbannoor,+Kerala/@9.9023451,76.8183941,15z/data=!3m1!4b1!4m6!3m5!1s0x3b07c75338a858d9:0x28dd3d3e0ad53ccb!8m2!3d9.9023471!4d76.8201976!16zL20vMGZjemp2?entry=ttu'));
 
   WebViewController next = WebViewController()
     ..setJavaScriptMode(JavaScriptMode.unrestricted)
-    ..loadRequest(Uri.parse('https://idukki.nic.in/en/directory/grama-panchayat-udumbannoor/'));
+    ..loadRequest(Uri.parse(
+        'https://idukki.nic.in/en/directory/grama-panchayat-udumbannoor/'));
 
 
   @override
   Widget build(BuildContext context) {
-    final provider=Provider.of<logindata>(context,listen: true);
+    final provider = Provider.of<logindata>(context, listen: true);
     return Scaffold(
 
 
@@ -96,8 +99,8 @@ class _homepageState extends State<homepage> {
       //     ],
       //   ),
 
-        ///       BOTTOM NAVIGATION BAR ENDS HERE
-        ///@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+      ///       BOTTOM NAVIGATION BAR ENDS HERE
+      ///@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
         appBar: const PreferredSize(
           child: aPPBAR(),
@@ -107,6 +110,7 @@ class _homepageState extends State<homepage> {
           child: ListView(
             children: [
               UserAccountsDrawerHeader(
+
                 ///              ACCOUNAME WILL BE FETCHED FROM FIREBASE AUTH
                 accountName: Text(user.email!),
 
@@ -120,50 +124,72 @@ class _homepageState extends State<homepage> {
               //Row1 "HOME"
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: ClayContainer(child: TextButton(onPressed: () {}, child: Text("HOME"))),
+                child: ClayContainer(
+                    child: TextButton(onPressed: () {}, child: Text("HOME"))),
               ),
 
 
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: ClayContainer(child: TextButton(onPressed: () {Navigator.of(context).push(MaterialPageRoute(builder: (context){return addbuisness();}));}, child: Text("ADD YOUR BUISNESS"))),
+                child: ClayContainer(child: TextButton(onPressed: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) {
+                        return addbuisness();
+                      }));
+                }, child: Text("ADD YOUR BUISNESS"))),
               ),
-     Padding(
+              Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: ClayContainer(child: TextButton(onPressed: () {ContactUs();}, child: Text("CONTACT US"))),
+                child: ClayContainer(child: TextButton(onPressed: () {
+                  _openWhatsAppWithMessage();
+                }, child: Text("CONTACT US"))),
 
               ),
 
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: ClayContainer(child: TextButton(onPressed: () {Exit(context);}, child: Text("Exit"))),
+                child: ClayContainer(child: TextButton(onPressed: () {
+                  Exit(context);
+                }, child: Text("Exit"))),
               ),
-            Padding(
-              padding: const EdgeInsets.only(top: 250),
-              child: Center(child: Text(_currentTime,style: TextStyle(fontSize: 40,color: Colors.blue),)),
-            )],
+              Padding(
+                padding: const EdgeInsets.only(top: 250),
+                child: Center(child: Text(_currentTime,
+                  style: TextStyle(fontSize: 40, color: Colors.blue),)),
+              )
+            ],
           ),
         ),
+
         ///        END OF DRAWER
         ///@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
         body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            child: ListView(//OUTER LIST VIEW
+            height: MediaQuery
+                .of(context)
+                .size
+                .height,
+            width: MediaQuery
+                .of(context)
+                .size
+                .width,
+            child: ListView( //OUTER LIST VIEW
               scrollDirection: Axis.vertical,
               children: [
 
                 ///            FIRST CONATAINER CONTAINING USEFULL LINK
                 ///          ============================================
-                Text("UDumbannor directory",textAlign: TextAlign.center,),
+                Text("UDumbannor directory", textAlign: TextAlign.center,),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ClayContainer(
                     height: 100,
-                    width: MediaQuery.of(context).size.width,
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width,
                     child: Center(
                       child: Padding(
                         padding: const EdgeInsets.only(left: 0),
@@ -172,33 +198,42 @@ class _homepageState extends State<homepage> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Container(height: 150,width:80,child: Column(
+                              child: Container(
+                                  height: 150, width: 80, child: Column(
                                 children: [Text("profile"),
-                                  TextButton(onPressed: (){changeprofile();}, child: Icon(Icons.person)),
+                                  TextButton(onPressed: () {
+                                    changeprofile();
+                                  }, child: Icon(Icons.person)),
                                 ],
                               )),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Container(height: 150,width:80,child: Column(
+                              child: Container(
+                                  height: 150, width: 80, child: Column(
                                 children: [Text("DOCTORS"),
-                                  TextButton(onPressed: (){}, child: Icon(Icons.local_hospital)),
+                                  TextButton(onPressed: () {},
+                                      child: Icon(Icons.local_hospital)),
                                 ],
                               )),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Container(height: 150,width:80,child: Column(
+                              child: Container(
+                                  height: 150, width: 80, child: Column(
                                 children: [Text("Emergency"),
-                                  TextButton(onPressed: (){}, child: Icon(Icons.contact_emergency)),
+                                  TextButton(onPressed: () {},
+                                      child: Icon(Icons.contact_emergency)),
                                 ],
                               )),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Container(height: 150,width:80,child: Column(
+                              child: Container(
+                                  height: 150, width: 80, child: Column(
                                 children: [Text("Sports"),
-                                  TextButton(onPressed: (){}, child: Icon(Icons.sports_cricket)),
+                                  TextButton(onPressed: () {},
+                                      child: Icon(Icons.sports_cricket)),
                                 ],
                               )),
                             ),
@@ -208,31 +243,41 @@ class _homepageState extends State<homepage> {
                     ),
                   ),
                 ),
+
                 ///           FIST CONTAINER ENDS HERE
                 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 
-
                 ///        SECOND CONTAINER STARTS HERE
                 //       ===============================
-                Center(child: Text("SERVICES",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 25,color: Colors.black),)),
-                ClayContainer(spread: 10,
+                Center(child: Text("SERVICES", style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25,
+                    color: Colors.black),)),
+                ClayContainer(
+                  spread: 10,
                   depth: 40,
-                  width: MediaQuery.of(context).size.width,
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width,
                   height: 250,
                   color: Colors.white,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: ListView(//ADDED ROW FOR ENTIRE CONTAINER
+                    child: ListView( //ADDED ROW FOR ENTIRE CONTAINER
                       scrollDirection: Axis.horizontal,
                       children: [
 
 
-                        Column(///ADDING COLUMN INSIDE THE ROW , CONTAINER ITSELF IS A ROW ,WE ADDING 2 COMPONENTS IN EACH COLUMN
+                        Column(
+
+                          ///ADDING COLUMN INSIDE THE ROW , CONTAINER ITSELF IS A ROW ,WE ADDING 2 COMPONENTS IN EACH COLUMN
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: ClayContainer(curveType: CurveType.convex,
+                              child: ClayContainer(
+                                curveType: CurveType.convex,
                                 spread: 1,
                                 width: 80,
                                 height: 100,
@@ -240,14 +285,20 @@ class _homepageState extends State<homepage> {
                                 child: Column(
                                   children: [
                                     Text("panchayath"),
-                                    TextButton(onPressed: (){Navigator.of(context).push(MaterialPageRoute(builder: (context){return initial();}));},child: Icon(Icons.house),),
+                                    TextButton(onPressed: () {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(builder: (context) {
+                                            return initial();
+                                          }));
+                                    }, child: Icon(Icons.house),),
                                   ],
                                 ),
                               ),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: ClayContainer(curveType: CurveType.convex,
+                              child: ClayContainer(
+                                curveType: CurveType.convex,
                                 spread: 1,
                                 width: 80,
                                 height: 100,
@@ -255,7 +306,12 @@ class _homepageState extends State<homepage> {
                                 child: Column(
                                   children: [
                                     Text("Vehicles"),
-                                    TextButton(onPressed: (){Navigator.of(context).push(MaterialPageRoute(builder: (context){return taxi();}));},child: Icon(Icons.car_rental),),
+                                    TextButton(onPressed: () {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(builder: (context) {
+                                            return taxi();
+                                          }));
+                                    }, child: Icon(Icons.car_rental),),
                                   ],
                                 ),
                               ),
@@ -264,11 +320,14 @@ class _homepageState extends State<homepage> {
                         ),
 
 
-                        Column(///ADDING COLUMN INSIDE THE ROW , CONTAINER ITSELF IS A ROW ,WE ADDING 2 COMPONENTS IN EACH COLUMN
+                        Column(
+
+                          ///ADDING COLUMN INSIDE THE ROW , CONTAINER ITSELF IS A ROW ,WE ADDING 2 COMPONENTS IN EACH COLUMN
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: ClayContainer(curveType: CurveType.convex,
+                              child: ClayContainer(
+                                curveType: CurveType.convex,
                                 spread: 1,
                                 width: 80,
                                 height: 100,
@@ -276,14 +335,16 @@ class _homepageState extends State<homepage> {
                                 child: Column(
                                   children: [
                                     Text("Notification"),
-                                    TextButton(onPressed: (){},child: Icon(Icons.notifications),),
+                                    TextButton(onPressed: () {},
+                                      child: Icon(Icons.notifications),),
                                   ],
                                 ),
                               ),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: ClayContainer(curveType: CurveType.convex,
+                              child: ClayContainer(
+                                curveType: CurveType.convex,
                                 spread: 1,
                                 width: 80,
                                 height: 100,
@@ -291,18 +352,22 @@ class _homepageState extends State<homepage> {
                                 child: Column(
                                   children: [
                                     Text("Shops"),
-                                    TextButton(onPressed: (){},child: Icon(Icons.shopping_basket),),
+                                    TextButton(onPressed: () {},
+                                      child: Icon(Icons.shopping_basket),),
                                   ],
                                 ),
                               ),
                             )
                           ],
                         ),
-                        Column(///ADDING COLUMN INSIDE THE ROW , CONTAINER ITSELF IS A ROW ,WE ADDING 2 COMPONENTS IN EACH COLUMN
+                        Column(
+
+                          ///ADDING COLUMN INSIDE THE ROW , CONTAINER ITSELF IS A ROW ,WE ADDING 2 COMPONENTS IN EACH COLUMN
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: ClayContainer(curveType: CurveType.convex,
+                              child: ClayContainer(
+                                curveType: CurveType.convex,
                                 spread: 1,
                                 width: 80,
                                 height: 100,
@@ -310,14 +375,20 @@ class _homepageState extends State<homepage> {
                                 child: Column(
                                   children: [
                                     Text("post office"),
-                                    TextButton(onPressed: (){Navigator.of(context).push(MaterialPageRoute(builder: (context){return postoffice();}));},child: Icon(Icons.local_post_office),),
+                                    TextButton(onPressed: () {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(builder: (context) {
+                                            return postoffice();
+                                          }));
+                                    }, child: Icon(Icons.local_post_office),),
                                   ],
                                 ),
                               ),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: ClayContainer(curveType: CurveType.convex,
+                              child: ClayContainer(
+                                curveType: CurveType.convex,
                                 spread: 1,
                                 width: 80,
                                 height: 100,
@@ -326,7 +397,9 @@ class _homepageState extends State<homepage> {
 
                                   children: [
                                     Center(child: Text("village \noffice")),
-                                    Center(child: TextButton(onPressed: (){},child: Icon(Icons.holiday_village_rounded),)),
+                                    Center(child: TextButton(onPressed: () {},
+                                      child: Icon(
+                                          Icons.holiday_village_rounded),)),
                                   ],
                                 ),
                               ),
@@ -335,11 +408,14 @@ class _homepageState extends State<homepage> {
                         ),
 
 
-                        Column(///ADDING COLUMN INSIDE THE ROW , CONTAINER ITSELF IS A ROW ,WE ADDING 2 COMPONENTS IN EACH COLUMN
+                        Column(
+
+                          ///ADDING COLUMN INSIDE THE ROW , CONTAINER ITSELF IS A ROW ,WE ADDING 2 COMPONENTS IN EACH COLUMN
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: ClayContainer(curveType: CurveType.convex,
+                              child: ClayContainer(
+                                curveType: CurveType.convex,
                                 spread: 1,
                                 width: 80,
                                 height: 100,
@@ -347,14 +423,16 @@ class _homepageState extends State<homepage> {
                                 child: Column(
                                   children: [
                                     Text("news"),
-                                    TextButton(onPressed: (){},child: Icon(Icons.newspaper_sharp),),
+                                    TextButton(onPressed: () {},
+                                      child: Icon(Icons.newspaper_sharp),),
                                   ],
                                 ),
                               ),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: ClayContainer(curveType: CurveType.convex,
+                              child: ClayContainer(
+                                curveType: CurveType.convex,
                                 spread: 1,
                                 width: 80,
                                 height: 100,
@@ -362,7 +440,12 @@ class _homepageState extends State<homepage> {
                                 child: Column(
                                   children: [
                                     Text("Sports"),
-                                    TextButton(onPressed: (){Navigator.of(context).push(MaterialPageRoute(builder: (context){return sports();}));},child: Icon(Icons.sports_cricket),),
+                                    TextButton(onPressed: () {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(builder: (context) {
+                                            return sports();
+                                          }));
+                                    }, child: Icon(Icons.sports_cricket),),
                                   ],
                                 ),
                               ),
@@ -371,11 +454,14 @@ class _homepageState extends State<homepage> {
                         ),
 
 
-                        Column(///ADDING COLUMN INSIDE THE ROW , CONTAINER ITSELF IS A ROW ,WE ADDING 2 COMPONENTS IN EACH COLUMN
+                        Column(
+
+                          ///ADDING COLUMN INSIDE THE ROW , CONTAINER ITSELF IS A ROW ,WE ADDING 2 COMPONENTS IN EACH COLUMN
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: ClayContainer(curveType: CurveType.convex,
+                              child: ClayContainer(
+                                curveType: CurveType.convex,
                                 spread: 1,
                                 width: 80,
                                 height: 100,
@@ -383,16 +469,20 @@ class _homepageState extends State<homepage> {
                                 child: Column(
                                   children: [
                                     Text("Restaurant"),
-                                    TextButton(onPressed: (){
-                                      Navigator.of(context).push(MaterialPageRoute(builder: (context){return restaurant();}));
-                                    },child: Icon(Icons.restaurant),),
+                                    TextButton(onPressed: () {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(builder: (context) {
+                                            return restaurant();
+                                          }));
+                                    }, child: Icon(Icons.restaurant),),
                                   ],
                                 ),
                               ),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: ClayContainer(curveType: CurveType.convex,
+                              child: ClayContainer(
+                                curveType: CurveType.convex,
                                 spread: 1,
                                 width: 80,
                                 height: 100,
@@ -400,7 +490,12 @@ class _homepageState extends State<homepage> {
                                 child: Column(
                                   children: [
                                     Text("Schools"),
-                                    TextButton(onPressed: (){Navigator.of(context).push(MaterialPageRoute(builder: (context){return school();}));},child: Icon(Icons.school),),
+                                    TextButton(onPressed: () {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(builder: (context) {
+                                            return school();
+                                          }));
+                                    }, child: Icon(Icons.school),),
                                   ],
                                 ),
                               ),
@@ -408,26 +503,36 @@ class _homepageState extends State<homepage> {
                           ],
                         ),
 
-                        Column(///ADDING COLUMN INSIDE THE ROW , CONTAINER ITSELF IS A ROW ,WE ADDING 2 COMPONENTS IN EACH COLUMN
+                        Column(
+
+                          ///ADDING COLUMN INSIDE THE ROW , CONTAINER ITSELF IS A ROW ,WE ADDING 2 COMPONENTS IN EACH COLUMN
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: ClayContainer(curveType: CurveType.convex,
+                              child: ClayContainer(
+                                curveType: CurveType.convex,
                                 spread: 1,
                                 width: 80,
                                 height: 100,
                                 color: Colors.white,
                                 child: Column(
                                   children: [
-                                    Text("Medical \nshops",textAlign: TextAlign.center,),
-                                    TextButton(onPressed: (){Navigator.of(context).push(MaterialPageRoute(builder: (context){return medicalshop();}));},child: Icon(Icons.health_and_safety),),
+                                    Text("Medical \nshops",
+                                      textAlign: TextAlign.center,),
+                                    TextButton(onPressed: () {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(builder: (context) {
+                                            return medicalshop();
+                                          }));
+                                    }, child: Icon(Icons.health_and_safety),),
                                   ],
                                 ),
                               ),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: ClayContainer(curveType: CurveType.convex,
+                              child: ClayContainer(
+                                curveType: CurveType.convex,
                                 spread: 1,
                                 width: 80,
                                 height: 100,
@@ -435,7 +540,14 @@ class _homepageState extends State<homepage> {
                                 child: Column(
                                   children: [
                                     Text("Hospitals"),
-                                    TextButton(onPressed: (){Navigator.of(context).push(MaterialPageRoute(builder: (context){return hospital();}));},child: Icon(Icons.local_hospital_outlined),),
+                                    TextButton(onPressed: () {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(builder: (context) {
+                                            return hospital();
+                                          }));
+                                    },
+                                      child: Icon(
+                                          Icons.local_hospital_outlined),),
                                   ],
                                 ),
                               ),
@@ -444,26 +556,34 @@ class _homepageState extends State<homepage> {
                         ),
 
 
-                        Column(//ADDING COLUMN INSIDE THE ROW , CONTAINER ITSELF IS A ROW ,WE ADDING 2 COMPONENTS IN EACH COLUMN
+                        Column( //ADDING COLUMN INSIDE THE ROW , CONTAINER ITSELF IS A ROW ,WE ADDING 2 COMPONENTS IN EACH COLUMN
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: ClayContainer(curveType: CurveType.convex,
+                              child: ClayContainer(
+                                curveType: CurveType.convex,
                                 spread: 1,
                                 width: 80,
                                 height: 100,
                                 color: Colors.white,
                                 child: Column(
                                   children: [
-                                    Text("Akshaya \nenter",textAlign: TextAlign.center,),
-                                    TextButton(onPressed: (){Navigator.of(context).push(MaterialPageRoute(builder: (context){return akshya();}));},child: Icon(Icons.e_mobiledata),),
+                                    Text("Akshaya \nenter",
+                                      textAlign: TextAlign.center,),
+                                    TextButton(onPressed: () {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(builder: (context) {
+                                            return akshya();
+                                          }));
+                                    }, child: Icon(Icons.e_mobiledata),),
                                   ],
                                 ),
                               ),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: ClayContainer(curveType: CurveType.convex,
+                              child: ClayContainer(
+                                curveType: CurveType.convex,
                                 spread: 1,
                                 width: 80,
                                 height: 100,
@@ -471,7 +591,8 @@ class _homepageState extends State<homepage> {
                                 child: Column(
                                   children: [
                                     Text("Social \nservice"),
-                                    TextButton(onPressed: (){},child: Icon(Icons.bloodtype),),
+                                    TextButton(onPressed: () {},
+                                      child: Icon(Icons.bloodtype),),
                                   ],
                                 ),
                               ),
@@ -480,8 +601,9 @@ class _homepageState extends State<homepage> {
                         )
                       ],
                     ),
-                  ) ,
+                  ),
                 ),
+
                 ///        SECOND CONTAINER ENDS HERE
                 ///@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
@@ -525,18 +647,22 @@ class _homepageState extends State<homepage> {
 
   Future Exit(context) async
   {
-    final share=await SharedPreferences.getInstance();
+    final share = await SharedPreferences.getInstance();
 
     FirebaseAuth.instance.signOut();
-    Navigator.pushAndRemoveUntil((context), MaterialPageRoute(builder: (context){return loginpage();}), (route) => false);
+    Navigator.pushAndRemoveUntil(
+        (context), MaterialPageRoute(builder: (context) {
+      return loginpage();
+    }), (route) => false);
   }
 
   ///PROFILE BUTTON
   changeprofile() async
   {
-    await Navigator.of(context).push(MaterialPageRoute(builder: (context){return profile();}));
+    await Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+      return profile();
+    }));
   }
-
 
 
   void sendEmail() async {
@@ -562,8 +688,8 @@ class _homepageState extends State<homepage> {
 
     // The message you want to send (optional)
     String buisness = buisnessname.text;
-    String _name=name.text;
-    String mobilenumber=mobile.text;
+    String _name = name.text;
+    String mobilenumber = mobile.text;
 
     // Encode the message for the URL
     String encodedMessage = Uri.encodeComponent(buisness);
@@ -578,7 +704,6 @@ class _homepageState extends State<homepage> {
     try {
       // Attempt to launch the WhatsApp app with the specified phone number and message
       await launch(whatsappUrl);
-
     } catch (e) {
       // Handle any exceptions or errors
       print('Error launching WhatsApp: $e');
@@ -593,13 +718,19 @@ class _homepageState extends State<homepage> {
     });
   }
 
-  Future ContactUs() async{
-    String phone="whatsap://send?phone=8156865011";
-    try{
-      await launch(phone);
-    }
-    catch(e){print(e);}
-  }
+  _openWhatsAppWithMessage() async {
+    // The phone number or WhatsApp link you want to open
+    String phoneNumber = "whatsapp://send?phone=8156865011";
 
+
+    try {
+      // Attempt to launch the WhatsApp app with the specified phone number and message
+      await launch(phoneNumber);
+    } catch (e) {
+      // Handle any exceptions or errors
+      print('Error launching WhatsApp: $e');
+      // Optionally, you can provide a fallback or show an error message to the user
+    }
+  }
 }
 
