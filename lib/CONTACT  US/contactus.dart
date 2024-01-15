@@ -12,8 +12,10 @@ class _contactusState extends State<contactus> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(appBar: AppBar(title: Text("ADD YOUR BUISNESS"),),
+
       body: Column(
         children: [
+          Image.asset("assets/contact us"),
 
           ElevatedButton(onPressed: (){_openWhatsAppWithMessage();}, child: Text("SEND"))
 
