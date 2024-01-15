@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:glassmorphism/glassmorphism.dart';
 import 'package:provider/provider.dart';
 import 'package:statemanagement/APPBAR/appbar.dart';
+import 'package:statemanagement/FORGOT%20PASSWORD/forgotPassword.dart';
+import 'package:statemanagement/FORGOT%20PASSWORD/forgotPasswordredirect.dart';
 import 'package:statemanagement/LOGINPAGE/logindata.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:io';
@@ -13,24 +15,25 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../TESTCODE/testing.dart';
 import '../homepage/homepage.dart';
 
-final data="userLoginCredential";
+final data = "userLoginCredential";
+
 class loginpage extends StatefulWidget {
   const loginpage({super.key});
 
   @override
   State<loginpage> createState() => _loginpageState();
 }
-final formkey=GlobalKey<FormState>();
+
+final formkey = GlobalKey<FormState>();
+
 class _loginpageState extends State<loginpage> {
   bool noid = false;
-
 
   //          CREATING BLUEPRINT OF FIREBASE DATA AS collection
   //==================================================================
   final CollectionReference collection = FirebaseFirestore.instance.collection(
       "USER CREDENTIALS"); //CREATED A COLLECTION WITH NAME "USER CREDENTIALS"
   //==================================================================
-
 
   // TEXT EDITING CONTROLER FOR USERNAME,PASSWORD,AND MAIL
   //=================================================================
@@ -50,106 +53,120 @@ class _loginpageState extends State<loginpage> {
   Widget build(BuildContext context) {
     final provider = Provider.of<logindata>(context, listen: true);
 
-    return Scaffold(appBar: AppBar(backgroundColor: Colors.grey,
-      title: Text("Hello Udumbannoor",),),
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.grey,
+        title: Text(
+          "Hello Udumbannoor",
+        ),
+      ),
       body: SingleChildScrollView(
         child: Container(
-          height: MediaQuery
-              .of(context)
-              .size
-              .height, width: MediaQuery
-            .of(context)
-            .size
-            .width,
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
-            image: DecorationImage(fit: BoxFit.cover,
-              image: Image
-                  .asset("assets/udumbannoor.jpg",
-                  height: MediaQuery
-                      .of(context)
-                      .size
-                      .height, width: MediaQuery
-                      .of(context)
-                      .size
-                      .width)
+            image: DecorationImage(
+              fit: BoxFit.cover,
+              image: Image.asset("assets/udumbannoor.jpg",
+                      height: MediaQuery.of(context).size.height,
+                      width: MediaQuery.of(context).size.width)
                   .image,
             ),
           ),
-          child: Column(mainAxisAlignment: MainAxisAlignment.center,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset("assets/udumbannoor.jpg"),
               SingleChildScrollView(
-
                 //GLASSMORPHIC CONTAINER
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: SingleChildScrollView(
-                    child: GlassmorphicContainer(width:MediaQuery.of(context).size.width,blur: 20,border:20,borderGradient:LinearGradient(colors: [Colors.black,Colors.white]),borderRadius: 20,height: 400,linearGradient:LinearGradient(colors: [Colors.white,Colors.black]) ,
+                    child: GlassmorphicContainer(
+                      width: MediaQuery.of(context).size.width,
+                      blur: 20,
+                      border: 20,
+                      borderGradient: LinearGradient(colors: [Colors.white12,Colors.grey]),
+                      borderRadius: 20,
+                      height: 400,
+                      linearGradient:
+                          LinearGradient(colors: [Colors.white12,Colors.white24]),
                       child: Form(
                         key: formkey,
                         child: Column(
                           children: [
-                            Text("LOGIN TO KNOW ALL ABOUT UDUMBANNOOR",
+                            Text(
+                              "LOGIN TO KNOW ALL ABOUT UDUMBANNOOR",
 
                               //LOGIN TEXTFIELD
-                        //                                          ====================
+                              //                                          ====================
                               //USER NAME TEXT FIELD
-                              style: TextStyle(
-                                  fontSize: 20, color: Colors.yellow),),
+                              style:
+                                  TextStyle(fontSize: 20, color: Colors.yellow),
+                            ),
                             TextFormField(
                               controller: email,
                               validator: _validateEmail,
                               decoration: InputDecoration(
+                                hintText: "email" ,
                                   filled: true,
                                   fillColor: Colors.white,
                                   border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10))
-                              ),
+                                      borderRadius: BorderRadius.circular(10))),
                             ),
-                            SizedBox(height: 10,),
-
+                            SizedBox(
+                              height: 10,
+                            ),
 
                             //          PASSWORD TEXT FIELD
                             TextFormField(
                               controller: password,
                               validator: _validatePassword,
                               obscureText: true,
-                              decoration: InputDecoration(filled: true,
+                              decoration: InputDecoration(
+                                hintText: "password",
+                                  filled: true,
                                   fillColor: Colors.white,
                                   border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10))
-                              ),
+                                      borderRadius: BorderRadius.circular(10))),
                             ),
 
-
                             ///                                            LOGIN BUTTON
-                        //                                           ==============
-                            ElevatedButton(onPressed: () {
-                              if(formkey.currentState!.validate()){
-                                login(context);
-                              }
+                            //                                           ==============
+                            ElevatedButton(
+                                onPressed: () {
+                                  if (formkey.currentState!.validate()) {
+                                    login(context);
+                                  }
 
+                                  // savelogincredential(context);
+                                  // provider.getdatafromloginpage(username.text);
+                                },
+                                child: Text("login")),
 
-                              // savelogincredential(context);
-                              // provider.getdatafromloginpage(username.text);
-                            }, child: Text("login")),
-
-
-                        //                                            SIGNUP BUTTON
-                        //                                          =================
-                            Text("New to the app? \nSignup", style: TextStyle(
-                                fontSize: 20, color: Colors.green),),
-                            ElevatedButton(onPressed: () {
-                              Navigator.of(context).push(
-                                  MaterialPageRoute(builder: (context) {
-                                    return
-                                      signup();
+                            //                                            SIGNUP BUTTON
+                            //                                          =================
+                            Text(
+                              "New to the app? \nSignup",
+                              style:
+                                  TextStyle(fontSize: 20, color: Colors.green),
+                            ),
+                            ElevatedButton(
+                                onPressed: () {
+                                  Navigator.of(context).push(
+                                      MaterialPageRoute(builder: (context) {
+                                    return signup();
                                     //signuppage();
                                     //Signup on test.dart for testing code ...original at signup
                                   }));
-                            },
+                                },
                                 child: Text("Signup")),
-                            ElevatedButton(onPressed: (){resetPassword(email.text);}, child: Text("forgot password"))
+                            ElevatedButton(
+                                onPressed: () {
+                                  Navigator.of(context).push(MaterialPageRoute(builder: (context){return forgotpassword();}));
+
+                                },
+                                child: Text("forgot password"))
                             // Text(login())
                           ],
                         ),
@@ -166,47 +183,43 @@ class _loginpageState extends State<loginpage> {
   }
 
 //     SANING SHAREDPREFERENCE
-  Future savelogincredential(context) async
-  {
+  Future savelogincredential(context) async {
     final share = await SharedPreferences.getInstance();
     share.setBool(data, true);
   }
 
   //  FOR SAVING USERNAME:=
-  savecredential(data) async
-  {
+  savecredential(data) async {
     final share = await SharedPreferences.getInstance();
     share.setString("data", data);
   }
 
-
 //FIREBASE AUTHENTICATION
-  login(context) async
-  {
-    showDialog(context: context, barrierDismissible: false, builder: (context) {
-      return Center(child: CircularProgressIndicator());
-    });
+  login(context) async {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return Center(child: CircularProgressIndicator());
+        });
 
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email.text,
         password: password.text,
-
       );
-      Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) {
-            return homepage();
-          }));
-    }
-    on FirebaseAuthException
-    catch (e) {
+      Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+        return homepage();
+      }));
+    } on FirebaseAuthException catch (e) {
       print("error code is ${e.code}");
 // print(e.toString());
 //       String err=e.toString();
 //       // if (err == 'invalid-credential') {
 //        // Display a message if user doesn't exist
-     await ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.code)));
-     Navigator.pop(context);
+      await ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.code)));
+      Navigator.pop(context);
       // showDialog(
       //     context: context,
       //     barrierDismissible: false,
@@ -215,20 +228,15 @@ class _loginpageState extends State<loginpage> {
       //     },
       //   );
 
-
       //   print('No user found for that email.');
       // }
-
 
       // else if (e.code == 'wrong-password') {
       //   print('Wrong password provided for that user.');
       // }
       print("INVALID USERID OR PASSWORD");
     }
-
   }
-
-
 
   String? _validateEmail(String? value) {
     if (value == null || value.isEmpty) {
@@ -242,10 +250,6 @@ class _loginpageState extends State<loginpage> {
     }
   }
 
-
 // Function to reset the password
-  Future<void> resetPassword(String email) async {
-    await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
-  }
 
 }
