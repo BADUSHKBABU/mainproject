@@ -130,7 +130,7 @@ class _homepageState extends State<homepage> {
               ),
      Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: ClayContainer(child: TextButton(onPressed: () {Navigator.of(context).push(MaterialPageRoute(builder: (context){return contactus();}));}, child: Text("CONTACT US"))),
+                child: ClayContainer(child: TextButton(onPressed: () {ContactUs();}, child: Text("CONTACT US"))),
 
               ),
 
@@ -591,6 +591,14 @@ class _homepageState extends State<homepage> {
       _currentTime = DateTime.now().toString().substring(11, 19);
       // Formats the time as HH:MM:SS
     });
+  }
+
+  Future ContactUs() async{
+    String phone="whatsap://send?phone=8156865011";
+    try{
+      await launch(phone);
+    }
+    catch(e){print(e);}
   }
 
 }
