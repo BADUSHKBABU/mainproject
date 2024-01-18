@@ -1,7 +1,8 @@
 import 'package:clay_containers/clay_containers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:statemanagement/FIREBASE%20DATAS/RESTAURANT/add_restaurant.dart';
+import 'package:statemanagement/MODEL/RESTAURANT/add_restaurant.dart';
+
 
 class restaurant extends StatefulWidget {
   const restaurant({super.key});
@@ -44,24 +45,27 @@ class _restaurantState extends State<restaurant> {
     height: 100,
     color: Colors.white,
     child:
-    Container(
-    color: Colors.black,
-    child: Center(
+    Center(
     child:  ListView(
     children: [
     // Center(child: Text("RESTAURANT NAME :",style: TextStyle(fontSize: 20,color: Colors.white,))),
-    Center(child: Text(documentSnapshot["name"],style: TextStyle(fontSize: 25,color: Colors.white,fontWeight: FontWeight.bold),)),
-    Center(child: Text(documentSnapshot["place"],style: TextStyle(fontSize: 25,color: Colors.white,fontWeight: FontWeight.bold),)),
-    Center(child: Text(documentSnapshot["mobile"],style: TextStyle(fontSize: 25,color: Colors.white,fontWeight: FontWeight.bold),)),
+    Center(child: Text(documentSnapshot["name"],style: TextStyle(fontSize: 25,color: Colors.black,fontWeight: FontWeight.bold),)),
+    Center(child: Text(documentSnapshot["place"],style: TextStyle(fontSize: 25,color: Colors.black,fontWeight: FontWeight.bold),)),
+    Center(child: Row(mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        IconButton(onPressed: (){}, icon: Icon(Icons.phone)),
+        IconButton(onPressed: (){}, icon: Icon(Icons.location_on_rounded)),
+        IconButton(onPressed: (){}, icon: Icon(Icons.message)),
+      ],
+    )),
     Divider(color: Colors.white,thickness: 10,)
 
 
     //Center(child: Text("MOBILE NUMBER :${documentSnapshot["mobile"]}",style: TextStyle(fontSize: 20,color: Colors.white,))),
-   // Center(child: Text("  PLACE : ${documentSnapshot["place"]}",style: TextStyle(fontSize: 20,color: Colors.white,))),
+       // Center(child: Text("  PLACE : ${documentSnapshot["place"]}",style: TextStyle(fontSize: 20,color: Colors.white,))),
 
     ],
     ),
-    )
     ),
 
     ///         BUTTON FOR ADDING RESTAURANT
@@ -75,30 +79,7 @@ class _restaurantState extends State<restaurant> {
     )
     );
   }
+
+
 }
 
-// Container(
-// width: MediaQuery.of(context).size.width/4,
-// height: MediaQuery.of(context).size.height/4,
-// color: Colors.white,
-// child:
-// Container(
-// color: Colors.grey,
-// child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-// children: [
-// Container(child: Column(
-// children: [
-// Text("RESTAURANT NAME : ${documentSnapshot["name"]}",style: TextStyle(fontSize: 20,color: Colors.white,)),
-// Text("  MOBILE NUMBER : ${documentSnapshot["mobile"]}",style: TextStyle(fontSize: 20,color: Colors.white,)),
-// Text("  PLACE : ${documentSnapshot["place"]}",style: TextStyle(fontSize: 20,color: Colors.white,)),
-// ],
-// ),),
-// ElevatedButton(onPressed: (){Navigator.of(context).push(MaterialPageRoute(builder: (context){return addRestaurant();}));}, child: Column(
-// children: [
-// Text("ADD YOUR RESTAURANT",style: TextStyle(color: Colors.black),),
-// IconButton(onPressed: (){Navigator.pop(context);}, icon: Icon(Icons.backspace))
-// ],
-// ))
-// ],
-// )
-// ),
