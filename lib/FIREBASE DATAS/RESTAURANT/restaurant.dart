@@ -2,8 +2,10 @@ import 'package:clay_containers/clay_containers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:statemanagement/CONTACT%20%20US/contactus.dart';
-import 'package:statemanagement/MODEL/RESTAURANT/add_restaurant.dart';
+
 import 'package:url_launcher/url_launcher.dart';
+
+import 'add_restaurant.dart';
 
 
 class restaurant extends StatefulWidget {
